@@ -1,0 +1,207 @@
+/*
+* reset
+*  仅用作重置元素的默认样式
+ */
+html,
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+p,
+blockquote,
+pre,
+hr,
+figure,
+table,
+caption,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+menu,
+img {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  min-height: 100%;
+  font-size: 12px;
+  // font: font-size/line-height font-family
+  // font: 12px/100% Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+  //   Microsoft YaHei, Arial, sans-serif, "\5b8b\4f53"; /* 宋体，Unicode，统一码 */
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif, "\5b8b\4f53";
+  /* 宋体，Unicode，统一码 */
+  color: #666;
+  background: #fff;
+
+}
+
+header,
+footer,
+section,
+article,
+aside,
+nav,
+hgroup,
+address,
+figure,
+figcaption,
+menu,
+details {
+  display: block;
+}
+
+caption,
+th {
+  text-align: left;
+  font-weight: normal;
+}
+
+html,
+body,
+iframe,
+abbr {
+  border: 0;
+}
+
+i,
+cite,
+var,
+address,
+dfn {
+  font-style: normal;
+}
+
+[hidefocus],
+summary {
+  outline: 0;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: inherit;
+}
+
+label,
+summary {
+  cursor: default;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
+  font-weight: bold;
+}
+
+del,
+ins,
+a,
+a:hover {
+  text-decoration: none; // 无文本装饰
+}
+
+body,
+textarea,
+input,
+button,
+select,
+keygen,
+legend,
+li {
+  outline: 0;
+}
+
+fieldset,
+img,
+input,
+button {
+  /* fieldset组合表单中的相关元素 */
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline-style: none;
+}
+
+ul,
+ol {
+  list-style: none;
+  /* 清除列表风格 */
+}
+
+input {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-family: inherit;
+}
+
+select,
+input {
+  vertical-align: middle;
+}
+
+select,
+input,
+textarea {
+  font-size: 12px;
+  margin: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+/* 防止多行文本框拖动 */
+img {
+  border: 0;
+  vertical-align: middle;
+}
+
+/*  去掉图片低测默认的3像素空白缝隙 */
+table {
+  border-collapse: collapse;
+  /* 合并外边线 */
+  border-spacing: 0;
+}
+
+a {
+  color: #333;
+}
+
+/* 滚动条优化 start */
+::-webkit-scrollbar{
+  width:8px;
+  height:8px;
+}
+::-webkit-scrollbar-track{
+  background: #f6f6f6;
+  border-radius:2px;
+}
+::-webkit-scrollbar-thumb{
+  background: #cdcdcd;
+  border-radius:2px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background: #747474;
+}
+::-webkit-scrollbar-corner {
+  background: #f6f6f6;
+}
+/* 滚动条优化 end */

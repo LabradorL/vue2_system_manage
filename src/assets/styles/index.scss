@@ -1,0 +1,132 @@
+// 菜单主题风格样式
+@import "./variables.scss";
+// 混入样式
+@import "./mixin.scss";
+// 过渡效果样式
+@import "./transition.scss";
+// @import "./element-ui.scss";
+// 左侧菜单样式
+@import "./sidebar.scss";
+// 修改element-ui的样式
+@import "./element-ui.scss";
+// @import "./btn.scss";
+// 初始化样式
+@import "./reset.scss";
+
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
+}
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+.percent100 {
+  width: 100%;
+}
+//main-container全局样式
+.app-container {
+  padding: 20px;
+}
+
+.app-main .app-container-bg {
+  background-color: #f5f6fb;
+  min-height: calc(100vh - 50px);
+}
+.hasTagsView .app-main .app-container-bg {
+  background-color: #f5f6fb;
+  min-height: calc(100vh - 84px);
+}
+
+/** 表格/表单的块title **/
+// XXXX信息
+//___________
+.form-header {
+  font-size: 15px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 15px;
+  padding-bottom: 5px;
+}
+
+/** 分页的样式 **/
+.pagination-container {
+  position: relative;
+  height: 25px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  padding: 10px 20px !important;
+}
+
+.pagination-container .el-pagination {
+  right: 0;
+  position: absolute;
+}
+
+@media (max-width: 768px) {
+  .pagination-container .el-pagination > .el-pagination__jump {
+    display: none !important;
+  }
+  .pagination-container .el-pagination > .el-pagination__sizes {
+    display: none !important;
+  }
+}
+/** 分页的样式结束 **/
+
+/** 个人中心样式 **/
+.list-group {
+  padding-left: 0px;
+  list-style: none;
+}
+.list-group-striped > .list-group-item {
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+.list-group-item {
+  border-bottom: 1px solid #e7eaec;
+  border-top: 1px solid #e7eaec;
+  margin-bottom: -1px;
+  padding: 11px 0px;
+  font-size: 13px;
+}
+.pull-right {
+  float: right !important;
+}
+
+// card 控件样式
+.card-box {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-bottom: 10px;
+}
+/** 个人中心样式结束 **/

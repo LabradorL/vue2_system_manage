@@ -1,0 +1,22 @@
+
+// el-dropdown 下拉框样式修改
+// custome-popper 是popper-class 属性的值
+.custome-popper {
+  border: 1px solid #51f4f3;
+}
+.custome-popper .el-dropdown-menu {
+  background: rgba(0, 71, 89, 1);
+}
+.custome-popper .el-dropdown-menu__item {
+  color: #fff;
+}
+.custome-popper .el-dropdown-menu__item:hover {
+  background: transparent;
+  color: #51f4f3;
+}
+.custome-popper .el-popper__arrow {
+  border-width: 0;
+}
+.custome-popper .el-popper__arrow::before {
+  background: #51f4f3;
+}

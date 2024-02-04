@@ -1,0 +1,73 @@
+:root {
+  /* color */
+
+  --a-success-6: rgb(0, 180, 42);
+  --a-success-5: rgb(35, 195, 67);
+  --a-success-4: rgb(76, 210, 99);
+  --a-success-3: rgb(123, 225, 136);
+  --a-success-2: rgb(173, 240, 180);
+  --a-success-1: rgb(232, 255, 234);
+
+  --a-primary-6: rgb(64, 158, 255);
+  --a-primary-5: rgba(83, 168, 255, 1);
+  --a-primary-4: rgba(121, 187, 255, 1);
+  --a-primary-3: rgba(160, 207, 255, 1);
+  --a-primary-2: rgba(179, 216, 255, 1);
+  --a-primary-1: rgba(236, 245, 255, 1);
+
+  --a-danger-6: rgb(247, 101, 96);
+  --a-danger-5: rgba(245, 108, 108, 1);
+  --a-danger-4: rgb(249, 137, 129);
+  --a-danger-3: rgb(251, 172, 163);
+  --a-danger-2: rgb(253, 205, 197);
+  --a-danger-1: rgb(255, 236, 232);
+
+  --a-warning-6: rgb(243, 118, 16);
+  --a-warning-5: rgb(255, 154, 46);
+  --a-warning-4: rgb(255, 182, 93);
+  --a-warning-3: rgb(255, 207, 139);
+  --a-warning-2: rgb(255, 228, 186);
+  --a-warning-1: rgb(255, 247, 232);
+  /* color end */
+
+  /* --------------------------------------------------------------- */
+  /* font-color */
+
+  --a-color-text-4: rgb(48, 49, 51);
+  --a-color-text-3: rgb(96, 98, 102);
+  --a-color-text-2: rgb(144, 147, 153);
+  --a-color-text-1: rgb(192, 196, 204);
+
+  /* font-color end */
+
+  /* border-color */
+  --a-color-border-4: rgb(220, 223, 230);
+  --a-color-border-3: rgb(228, 231, 237);
+  --a-color-border-2: rgb(235, 238, 245);
+  --a-color-border-1: rgb(242, 246, 252);
+  /* border-color end */
+
+  /* base color */
+  --a-color-base-black: rgb(0, 0, 0);
+  --a-color-base-white: rgb(255, 255, 255);
+  --a-color-base-gray: rgb(247, 248, 250);
+  --a-color-base-transparent: transprent;
+  /* base-color  end */
+
+  /* font-size */
+  --a-font-size-12: 12px;
+  --a-font-size-14: 14px;
+  --a-font-size-16: 16px;
+  --a-font-size-18: 18px;
+  --a-font-size-20: 20px;
+  --a-font-size-24: 24px;
+  --a-font-size-32: 32px;
+  /* font-size end */
+
+  --panel-color: #0EFF00;
+  --opacity: 0.15;
+  --mouse-x: 1078.1730041503906px;
+  --mouse-y: 260.37382793426514px;
+  --x: 0px;
+  --y: 0px;
+}
