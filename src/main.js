@@ -1,8 +1,8 @@
 /*
  * @Author: lixiaofeng
  * @Date: 2022-09-25 15:57:32
- * @LastEditors: lixiaofeng 1091616642@qq.com
- * @LastEditTime: 2023-10-26 14:37:44
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-02-07 16:24:12
  * @Description:页面程序入口
  */
 import Vue from 'vue'
@@ -23,6 +23,7 @@ import plugins from './plugins' // plugins
 import './assets/icons' // icon
 import './permission' // permission control
 
+
 import filters from './filters' // filters 过滤器
 Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key])
@@ -38,6 +39,11 @@ import Editor from '@/components/Editor'
 import FileUpload from '@/components/FileUpload'
 // 图片上传组件
 import ImageUpload from '@/components/ImageUpload'
+// 头部标签组件
+import VueMeta from 'vue-meta'
+// 关于时间
+import moment from 'moment'
+import * as echarts from 'echarts'
 
 // 全局方法挂载
 Vue.prototype.parseTime = parseTime
@@ -45,12 +51,15 @@ Vue.prototype.resetForm = resetForm
 Vue.prototype.selectDictLabel = selectDictLabel
 Vue.prototype.selectDictLabels = selectDictLabels
 Vue.prototype.handleTree = handleTree
+Vue.prototype.$moment = moment
+Vue.prototype.$echarts = echarts
 
 // 全局组件挂载
 Vue.component('Pagination', Pagination)
 Vue.component('Editor', Editor)
 Vue.component('FileUpload', FileUpload)
 Vue.component('ImageUpload', ImageUpload)
+Vue.use(VueMeta)
 
 Vue.use(Element, {
   size: 'medium' // set element-ui default size

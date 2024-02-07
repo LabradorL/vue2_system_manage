@@ -1,8 +1,8 @@
 <!--
  * @Author: lixiaofeng
  * @Date: 2022-09-25 15:57:32
- * @LastEditors: lixf@863jp.com.cn
- * @LastEditTime: 2023-06-30 14:34:55
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-02-04 14:35:37
  * @Description: 页面入口
 -->
 <template>
@@ -13,7 +13,7 @@
 <script>
 export default {
   name: 'App',
-  // 不懂
+  // 浏览器页签显示的名称
   metaInfo() {
     return {
       title: '首页',

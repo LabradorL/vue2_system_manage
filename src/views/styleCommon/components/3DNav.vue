@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <template v-for="(item) in navList">
+    <template v-for="item in navList">
       <li :key="item.id" class="li" @click="jump(item.path)">
         <div class="box">
           <div class="front">{{ item.name }}</div>
@@ -24,7 +24,8 @@ export default {
   data() {
     return {
       navList: [
-        { path: '/all-people-can-browse-pie', name: '饼图图表合集' }
+        { path: '/all-people-can-browse-pie', name: '饼图图表合集' },
+        { path: '/largeScreenOne', name: '大屏样式' }
       ]
     }
   },
@@ -35,12 +36,9 @@ export default {
   created() {
     // this.getList()
   },
-  mounted() {
-  },
-  beforeDestroy() {
-  },
-  destroyed() {
-  },
+  mounted() {},
+  beforeDestroy() {},
+  destroyed() {},
   // 组件方法
   methods: {
     // 获取列表
@@ -96,12 +94,12 @@ ul {
 
 .front {
   background-color: skyblue;
-  transform: translate3d(0,0,'17.5px');
+  transform: translate3d(0, 0, '17.5px');
 }
 
 .bottom {
   background-color: yellowgreen;
-  transform: rotateX(-90deg) translate3d(0,0,17.5px);
+  transform: rotateX(-90deg) translate3d(0, 0, 17.5px);
 }
 
 .box:hover {

@@ -1,8 +1,8 @@
 <!--
  * @Author: lixiaofeng
  * @Date: 2022-09-25 17:27:29
- * @LastEditors: lixiaofeng 1091616642@qq.com
- * @LastEditTime: 2023-02-01 16:37:41
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-02-04 14:23:12
  * @Description: 登录页面
 -->
 <template>
@@ -78,7 +78,7 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2022 ruoyi.vip All Rights Reserved.</span>
+      <span>Copyright © 2018-2022 .vip All Rights Reserved.</span>
     </div>
   </div>
 </template>

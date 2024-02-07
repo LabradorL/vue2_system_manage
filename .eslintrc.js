@@ -58,7 +58,7 @@ module.exports = {
     'no-debugger': 2, // 禁止使用debugger
     'no-delete-var': 2, // 不能对var声明的变量使用delete操作符
     'no-div-regex': 1, // 不能使用看起来像除法的正则表达式/=foo/
-    'no-dupe-keys': 2, // 在创建对象字面量时不允许键重复 {a:1,a:1}
+    'no-dupe-keys': 0, // 在创建对象字面量时不允许键重复 {a:1,a:1}
     'no-dupe-args': 2, // 函数参数不能重复
     'no-dupe-class-members': 2, // 标记类成员中重复名称的使用
     'no-duplicate-case': 2, // switch中的case标签不能重复

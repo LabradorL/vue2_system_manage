@@ -1,8 +1,8 @@
 /*
  * @Author: lixiaofeng
  * @Date: 2022-09-25 16:51:23
- * @LastEditors: lixiaofeng 1091616642@qq.com
- * @LastEditTime: 2024-01-10 09:58:49
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-02-04 14:17:43
  * @Description: 获取路由api
  */
 // import request from '@/utils/request'
@@ -98,14 +98,14 @@ export const getRouters = () => {
             hidden: false,
             component: 'table/index.vue',
             meta: { title: 'table表格常用方法', icon: '#', noCache: false }
+          },
+          {
+            name: 'StatisticsNum',
+            path: 'statisticsNum',
+            hidden: false,
+            component: 'statisticsNum/index.vue',
+            meta: { title: '数据统计样式', icon: '#', noCache: false }
           }
-          // {
-          //   name: 'StatisticsNum',
-          //   path: 'statisticsNum',
-          //   hidden: false,
-          //   component: 'statisticsNum/index.vue',
-          //   meta: { title: '数据统计样式', icon: '#', noCache: false }
-          // }
         ],
         hidden: false,
         component: 'Layout',

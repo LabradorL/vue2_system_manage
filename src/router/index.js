@@ -125,7 +125,15 @@ export const functionRoutes = [
     hidden: false,
     meta: { title: '关系图合集', icon: 'dashboard', affix: true }
 
+  },
+  {
+    path: '/largeScreenOne',
+    component: () => import('@/views/allPeopleCanBrowse/largeScreenOne/index.vue'),
+    hidden: false,
+    meta: { title: '大屏', icon: 'dashboard', affix: true }
+
   }
+
 ]
 
 // 动态路由，基于用户权限动态去加载
