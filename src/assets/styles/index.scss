@@ -13,6 +13,27 @@
 // 初始化样式
 @import "./reset.scss";
 
+@font-face {
+  font-family: "DIN";
+  src: url("../fonts/DIN/DIN-Regular-2.otf") format("truetype");
+}
+@font-face {
+  font-family: "DIN-Bold";
+  src: url("../fonts/DIN/din-bold-2.ttf") format("truetype");
+}
+// @font-face {
+//     font-family: "DIN-Bold";
+//     src: url("../fonts/DIN/DIN-Regular-2.otf") format("truetype");
+// }
+@font-face {
+  font-family: "YouSheBiaoTi";
+  src: url("../fonts/YouSheBiaoTiHei-2.ttf") format("truetype");
+}
+@font-face {
+  font-family: "PangMenZhengDao";
+  src: url("../fonts/PangMenZhengDao.TTF") format("truetype");
+}
+
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;

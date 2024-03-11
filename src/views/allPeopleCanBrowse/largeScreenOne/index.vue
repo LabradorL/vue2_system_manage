@@ -33,7 +33,6 @@ import centerRight from './components/home-center/center-right.vue'
 import centerLeft from './components/home-center/center-left.vue'
 import centerBotton from './components/home-center/center-bottom.vue'
 import homeHead from './components/home-head/index.vue'
-import moment5 from 'moment'
 export default {
   name: 'LargeScreenOne',
   components: {

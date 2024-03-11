@@ -1,23 +1,16 @@
 <template>
-  <div
-    class=""
-    style="
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    "
-  >
-    <div v-show="mapLeave == 0" id="mapEchart" class="content-center-top" />
-
-    <!-- <div class="map-return" v-show="mapType == 1" @click="returnMap()">返回 <img src="../../assets/img/home/icon-map-return.png" alt=""></div> -->
+  <div class="map-box" style=" width: 100%;height: 100%;">
+    <div id="mapEchart" class="content-center-top" />
+    <div v-show="mapType !== 0" class="map-return" @click="returnMap()">
+      <img src="../../imgs/map/icon-map-return.png" alt="" class="return-icon-size">
+      <span>返回上一级</span>
+    </div>
   </div>
 </template>
 <script>
-// import cityToCode from '../../JSON/cityToCode.json'
-import cityLine from '../../JSON/cityLineMap.json'
-import ningxia from '../../JSON/ningxia.json'
+import axios from 'axios'
+import cityToCode from '../../JSON/cityToCode.json'
+// import cityLine from '../../JSON/cityLineMap.json'
 export default {
   name: 'Map',
   components: {},
@@ -30,445 +23,97 @@ export default {
   },
   data: function() {
     return {
-      mapType: 0, // 地图等级，0-承德市 1-区县
+      mapType: 0, // 地图等级，0-地市 1-市 2-区县
       legendName: 0,
+      // 地图等级
       mapLeave: 0,
       mapGaoxinNum: 100,
+      // 图例等级分类
       mapSection: [[0, 100], [101, 200], [201, 500], [500, 1000], [1000]],
       symbolImg: '',
-      cityDataList: [
-        {
-          I_VALUE: 354,
-          coord: '2323',
-          funcType: '03',
-          CITY: '银川市',
-          coord: [106.347233, 38.2883]
-        },
-        {
-          I_VALUE: 5120,
-          coord: '2323',
-          funcType: '03',
-          CITY: '石嘴山市',
-          coord: [106.376173, 39.01333]
-        },
-        {
-          I_VALUE: 20,
-          coord: '2323',
-          funcType: '03',
-          CITY: '吴忠市',
-          coord: [106.199409, 37.986165]
-        },
-        {
-          I_VALUE: 120,
-          coord: '2323',
-          funcType: '03',
-          CITY: '中卫市',
-          coord: [105.189568, 37.514951]
-        },
-        {
-          I_VALUE: 645,
-          coord: '2323',
-          funcType: '03',
-          CITY: '固原市',
-          coord: [106.285241, 36.004561]
-        }
-      ]
+      // 数据列表
+      cityDataList: [],
+      // 每级地图的名字
+      parentMapNameList: ['宁夏回族自治区'],
+      mapChart: null,
+      cityOrgId: {
+        640100: 'ff8080814c972f3f014c981aa70e13c3',
+        640500: 'ff8080814c972f3f014c9822363017d3',
+        640300: 'ff8080814c972f3f014c98244f5d1915',
+        640400: 'ff8080814c972f3f014c982693a61a2d',
+        640200: 'ff8080814c972f3f014c981e70b015e3',
+        宁夏: '232AF1D001B65527E055000000000001',
+        宁东: 'ff8080814c972f3f014c981fee3a171d'
+      }
     }
   },
   mounted() {
-    this.initMap('宁夏回族自治区', this.cityDataList, this.mapSection)
+    this.$nextTick(() => {
+      this.getGeoJson(this.parentMapNameList[this.parentMapNameList.length - 1])
+    // this.initMap("宁夏回族自治区", this.cityDataList, this.mapSection);
+    })
   },
   methods: {
-    initMap(mapName, cityDataList, mapSection) {
+    initEcharts(mapData, mapJson) {
       const that = this
-      if (mapSection) {
-        that.mapSection = mapSection
+      const mapName = this.parentMapNameList[this.parentMapNameList.length - 1]
+      if (!this.mapChart) {
+        const dom = document.getElementById('mapEchart')
+        this.mapChart = that.$echarts.init(dom)
+        window.addEventListener('resize', function() {
+          this.mapChart.resize()
+        })
+        this.mapChart.on('click', this.echartsMapClick)
       }
-
-      // const name = cityToCode[mapName]
-      // const url = 'json/map/' + name + '.json'
-      // 请求到的数据
-      const response = ningxia
-      const dom = document.getElementById('mapEchart')
-      that.$echarts.registerMap(mapName, response)
-      that.$echarts.registerMap('niXiaMapLine', cityLine)
-      const myChart = that.$echarts.init(dom)
-      window.addEventListener('resize', function() {
-        myChart.resize()
-      })
-      const dataList = []
-      cityDataList.forEach(function(item, index) {
-        // //console.log(item);
-
-        if (item.I_VALUE <= that.mapSection[0][1]) {
-          dataList.push({
-            value: item.I_VALUE,
-            name: item.CITY,
-            orgId: item.orgId,
-            funcType: item.funcType,
-            label: {
-              show: true,
-              formatter: '{c|{c}}\n{hr|} {b|{b}}',
-              rich: {
-                c: {
-                  fontSize: 24,
-                  color: '#ffffff',
-                  fontFamily: 'PangMenZhengDao',
-                  align: 'center',
-                  backgroundColor: {
-                    image: require('../../imgs/map/map-num-bg.png')
-                  },
-                  padding: [5, 0],
-                  height: 27,
-                  lineHeight: 27
-                },
-                hr: {
-                  borderColor: '#18587D',
-                  width: 12,
-                  borderWidth: 3,
-                  height: 40,
-                  borderRadius: 6,
-                  lineHeight: 40,
-                  padding: [-14, 0, -14, 0]
-                },
-                b: {
-                  color: '#FFFFFF',
-                  fontSize: 16,
-                  height: 40,
-                  lineHeight: 40,
-                  padding: [0, 0, 0, 5]
-                }
-              }
-            },
-            itemStyle: {
-              areaColor: {
-                type: 'radial',
-                x: 0.5,
-                y: 0.5,
-                r: 0.5,
-                colorStops: [
-                  {
-                    offset: 0.5,
-                    color: 'RGBA(0, 0, 0, 0.2)' // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: 'RGBA(31, 100, 187, 1)' // 100% 处的颜色
-                  }
-                ],
-                globalCoord: false // 缺省为 false
-              },
-              borderColor: '#18587D',
-              borderWidth: 1
-            }
-          })
-        } else if (
-          item.I_VALUE >= that.mapSection[1][0] &&
-          item.I_VALUE <= that.mapSection[1][1]
-        ) {
-          dataList.push({
-            value: item.I_VALUE,
-            name: item.CITY,
-            orgId: item.orgId,
-            funcType: item.funcType,
-            label: {
-              show: true,
-              formatter: '{c|{c}}\n{hr|} {b|{b}}',
-              rich: {
-                c: {
-                  fontSize: 24,
-                  color: '#ffffff',
-                  fontFamily: 'PangMenZhengDao',
-                  align: 'center',
-                  backgroundColor: {
-                    image: require('../../imgs/map/map-num-bg.png')
-                  },
-                  padding: [5, 0],
-                  height: 27
-                },
-                hr: {
-                  borderColor: '#1061FF',
-                  width: 12,
-                  borderWidth: 3,
-                  height: 40,
-                  borderRadius: 6,
-                  lineHeight: 40,
-                  padding: [-14, 0, -14, 0]
-                },
-                b: {
-                  color: '#FFFFFF',
-                  fontSize: 16,
-                  height: 40,
-                  lineHeight: 40,
-                  padding: [0, 0, 0, 5]
-                }
-              }
-            },
-            itemStyle: {
-              areaColor: {
-                type: 'radial',
-                x: 0.5,
-                y: 0.5,
-                r: 0.5,
-                colorStops: [
-                  {
-                    offset: 0.6,
-                    color: 'rgba(0, 234, 255, 0.1)' // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: 'rgba(0, 234, 255, 0.8)' // 100% 处的颜色
-                  }
-                ],
-                globalCoord: false // 缺省为 false
-              },
-              borderColor: '#1061FF',
-              borderWidth: 1
-            }
-          })
-        } else if (
-          item.I_VALUE >= that.mapSection[2][0] &&
-          item.I_VALUE <= that.mapSection[2][1]
-        ) {
-          dataList.push({
-            value: item.I_VALUE,
-            name: item.CITY,
-            orgId: item.orgId,
-            funcType: item.funcType,
-            label: {
-              show: true,
-              formatter: '{c|{c}}\n{hr|} {b|{b}}',
-              rich: {
-                c: {
-                  fontSize: 24,
-                  color: '#ffffff',
-                  fontFamily: 'PangMenZhengDao',
-                  align: 'center',
-                  backgroundColor: {
-                    image: require('../../imgs/map/map-num-bg.png')
-                  },
-                  padding: [5, 0],
-                  height: 27,
-                  lineHeight: 27
-                },
-                hr: {
-                  borderColor: '#00FFD5',
-                  width: 12,
-                  borderWidth: 3,
-                  height: 40,
-                  borderRadius: 6,
-                  lineHeight: 40,
-                  padding: [-14, 0, -14, 0]
-                },
-                b: {
-                  color: '#FFFFFF',
-                  fontSize: 16,
-                  height: 40,
-                  lineHeight: 40,
-                  padding: [0, 0, 0, 5]
-                }
-              }
-            },
-            itemStyle: {
-              areaColor: {
-                type: 'radial',
-                x: 0.5,
-                y: 0.5,
-                r: 0.5,
-                colorStops: [
-                  {
-                    offset: 0.6,
-                    color: 'rgba(16, 97, 255, 0.1)' // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: 'rgba(16, 97, 255, 0.7)' // 100% 处的颜色
-                  }
-                ],
-                globalCoord: false // 缺省为 false
-              },
-              borderColor: '#00FFD5',
-              borderWidth: 1
-            }
-          })
-        } else if (
-          item.I_VALUE >= that.mapSection[3][0] &&
-          item.I_VALUE <= that.mapSection[3][1]
-        ) {
-          dataList.push({
-            value: item.I_VALUE,
-            name: item.CITY,
-            orgId: item.orgId,
-            funcType: item.funcType,
-            label: {
-              show: true,
-              formatter: '{c|{c}}\n{hr|} {b|{b}}',
-              rich: {
-                c: {
-                  fontSize: 24,
-                  color: '#ffffff',
-                  fontFamily: 'PangMenZhengDao',
-                  align: 'center',
-                  backgroundColor: {
-                    image: require('../../imgs/map/map-num-bg.png')
-                  },
-                  padding: [5, 0],
-                  height: 27,
-                  lineHeight: 27
-                },
-                hr: {
-                  borderColor: '#367CFF',
-                  width: 12,
-                  borderWidth: 3,
-                  height: 40,
-                  borderRadius: 6,
-                  lineHeight: 40,
-                  padding: [-14, 0, -14, 0]
-                },
-                b: {
-                  color: '#FFFFFF',
-                  fontSize: 16,
-                  height: 40,
-                  lineHeight: 40,
-                  padding: [0, 0, 0, 5]
-                }
-              }
-            },
-            itemStyle: {
-              areaColor: {
-                type: 'radial',
-                x: 0.5,
-                y: 0.5,
-                r: 0.5,
-                colorStops: [
-                  {
-                    offset: 0.5,
-                    color: 'rgba(0, 166, 255, 0.1)' // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: 'rgba(0, 166, 255, 0.6)' // 100% 处的颜色
-                  }
-                ],
-                globalCoord: false // 缺省为 false
-              },
-              borderColor: '#367CFF',
-              borderWidth: 1
-            }
-          })
-        } else if (item.I_VALUE > that.mapSection[4][0]) {
-          dataList.push({
-            value: item.I_VALUE,
-            name: item.CITY,
-            orgId: item.orgId,
-            funcType: item.funcType,
-            label: {
-              show: true,
-              formatter: '{c|{c}}\n{hr|} {b|{b}}',
-              rich: {
-                c: {
-                  fontSize: 24,
-                  color: '#ffffff',
-                  fontFamily: 'PangMenZhengDao',
-                  align: 'center',
-                  backgroundColor: {
-                    image: require('../../imgs/map/map-num-bg.png')
-                  },
-                  padding: [5, 0],
-                  height: 27,
-                  lineHeight: 27
-                },
-                hr: {
-                  borderColor: '#FDC345',
-                  width: 12,
-                  borderWidth: 3,
-                  height: 40,
-                  borderRadius: 6,
-                  lineHeight: 40,
-                  padding: [-14, 0, -14, 0]
-                },
-                b: {
-                  color: '#FFFFFF',
-                  fontSize: 16,
-                  height: 40,
-                  lineHeight: 40,
-                  padding: [0, 0, 0, 5]
-                }
-              }
-            },
-            itemStyle: {
-              areaColor: {
-                type: 'radial',
-                x: 0.5,
-                y: 0.5,
-                r: 0.5,
-                colorStops: [
-                  {
-                    offset: 0.5,
-                    color: 'rgba(253, 195, 69, 0.1)' // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: 'rgba(253, 195, 69, 0.6)' // 100% 处的颜色
-                  }
-                ],
-                globalCoord: false // 缺省为 false
-              },
-              borderColor: '#FDC345',
-              borderWidth: 1
-              // shadowColor:'#FDC345',
-              // shadowBlur:10,
-              // borderColor: 'rgba(253, 195, 69, 1)',
-            }
-          })
-        }
-      })
-      const mapImgData = require('../../imgs/map/map-bg.png')
-      const domImg = document.createElement('img')
-      domImg.style.height =
-        domImg.style.width =
-        domImg.height =
-        domImg.width =
-          '100px'
-      domImg.src = mapImgData
+      // 注册
+      that.$echarts.registerMap(mapName, mapJson)
       const option = {
         color: ['#10A2E8'],
+        // 标题
         title: {
-          show: false
-        },
-        tooltip: {
           show: false,
-          backgroundColor: 'rgba(50,50,50,0)',
-          formatter: function(parmes) {
-            // //console.log(parmes);
-            let valueData = ''
-            const tooltipImg = require('../../imgs/map/icon-tq.png')
-            if (parmes.componentType === 'markPoint') {
-              valueData = parmes.data.valueData
-            } else {
-              valueData = parmes.data.value
+          text: mapName,
+          left: 'center'
+        },
+        // 工具栏
+        toolbox: {
+          show: false,
+          feature: {
+            myBack: {
+              show: false,
+              title: '返回',
+              icon: 'path://M473.2 276.9v-133c-4-18.4-11.7-27-20.2-30.3-17.2-6.7-37.8 8.5-37.8 8.5L95.9 395.4c-70.1 48.4-4.8 84.7-4.8 84.7L405.5 751c62.9 46 67.7-24.2 67.7-24.2V603.4c319.3-99.2 449.9 297.5 449.9 297.5 12.1 21.8 19.3 0 19.3 0 123.4-595-469.2-624-469.2-624z m0 0',
+              iconStyle: {
+                color: '#1aaef6',
+                borderColor: '#1aaef6'
+              },
+              onclick: function() {
+                const opt = that.getGeoJson(mapName)
+                // opt.toolbox.feature.myBack.show = false
+                // myChart.setOption(opt)
+              }
             }
-            let titleName = ''
-            if (that.legendName === 0) {
-              titleName = '台区数量'
-            } else if (that.legendName === 1) {
-              titleName = '工单数量'
-            } else if (that.legendName === 2) {
-              titleName = '终端数量'
+          }
+        },
+        geo: {
+          show: false,
+          silent: true,
+          map: mapName,
+          // top: 0,
+          // bottom: 0,
+          roam: false,
+          // aspectScale: 0.85,
+          // zoom: 0.6,
+          itemStyle: {
+            // 地图区域的多边形 图形样式
+            normal: {
+              // 是图形在默认状态下的样式
+              borderWidth: 1,
+              borderColor: '#75cef9',
+              shadowColor: '#5daee2',
+              shadowOffsetY: 10,
+              shadowOffsetX: 8
             }
-
-            const str = `<div style='width: 200px;height:126px;background: linear-gradient(180deg, #0C4380 0%, #032563 100%);border-top:1px solid #25CAFD;'>
-                        <p style='height:42px;width:100%;padding:0 25px;line-height:42px'>${parmes.data.name}</p>
-                        <p style='width:100%;  height:1px; background: linear-gradient(90deg, rgba(37,202,253,0) 0%, #25CAFD 50%, rgba(37,202,253,0) 100%);'></p>
-                        <div style='width:100%;height:83px;padding:8px 17px;display:flex;'>
-                          <img src=${tooltipImg} style='width:64px;height:64px;margin-right:9px;'>
-                          <div style="display: flex; flex-direction: column;justify-content: space-around;">
-                          <p style='font-size: 14px; font-family: MicrosoftYaHei; line-height: 17px; color: #D0D5D9;'>${titleName}</p>
-                          <p style='font-size: 24px; font-family: DIN; font-weight: bold; color: #25CAFD;'>${valueData}
-                          <span style='font-size: 14px; font-family: MicrosoftYaHei;color: #D0D5D9;'>个</span> </p></div>
-                        </div>
-                      </div>`
-            return str
           }
         },
         grid: {
@@ -477,58 +122,23 @@ export default {
           top: 10,
           bottom: 10
         },
-        toolbox: {
-          show: false
-        },
-        geo: {
-          silent: true,
-          show: false,
-          map: 'niXiaMapLine',
-          // aspectScale: 0.75, //长宽比
-          // zoom: 1.1,
-          roam: false,
-          itemStyle: {
-            areaColor: 'RGBA(14,42,89,2)'
-          }
-        },
         series: [
           {
-            map: 'niXiaMapLine',
-            silent: true,
+            top: '5%',
             type: 'map',
-            // left:'28%',
-            top: '7%',
-            label: {
-              normal: {
-                show: false,
-                textStyle: {
-                  color: '#fff'
-                }
-              },
-              emphasis: {
-                textStyle: {
-                  color: '#fff'
-                }
-              }
-            },
-            roam: false,
-            itemStyle: {
-              areaColor: 'transparent',
-              shadowColor: '#C8ECFB',
-              shadowBlur: 15,
-              borderWidth: 3,
-              borderColor: '#E8EEF3',
-              shadowOffsetY: 5
-            }
-          },
-          {
-            top: '7%',
-            // left:'28%',
-            type: 'map',
-            roam: false,
+            roam: false, // 是否开启鼠标缩放和平移漫游
+            // 使用 registerMap 注册的地图名称
             map: mapName,
             hoverAnimation: false,
             emphasis: {
+              // 鼠标悬停时文字是否显示
+              label: {
+                show: true
+              },
+              // 鼠标悬停时地图的颜色
+              // itemStyle: {
+              //   areaColor: "#ff9a2c",
+              // },
               formatter: '{c|{c}}\n{hr|} {b|{b}}',
               rich: {
                 c: {
@@ -564,6 +174,7 @@ export default {
               min: 1,
               max: 1
             },
+            // 初始化每一块地图的样式
             itemStyle: {
               normal: {
                 // label: {show: true},
@@ -571,29 +182,51 @@ export default {
                 borderWidth: 0, // 区域边框宽度
                 borderColor: '#transparent', // 区域边框颜色
                 areaColor: 'transparent'
-              },
-              emphasis: {
-                color: '#ffffff',
-                areaColor: {
-                  type: 'radial',
-                  x: 0.5,
-                  y: 0.5,
-                  r: 0.5,
-                  colorStops: [
-                    {
-                      offset: 0.5,
-                      color: 'RGBA(0, 0, 0, 0.2)' // 0% 处的颜色
-                    },
-                    {
-                      offset: 1,
-                      color: 'RGBA(31, 100, 187, 1)' // 100% 处的颜色
-                    }
-                  ],
-                  globalCoord: false // 缺省为 false
-                }
+                // borderWidth: 1,
+                // borderColor: "#75cef9",
+                // areaColor: {
+                //   type: "linear",
+                //   x: 0,
+                //   y: 0,
+                //   x2: 0,
+                //   y2: 800,
+                //   colorStops: [
+                //     {
+                //       offset: 0,
+                //       color: "#0770d5", // 0% 处的颜色
+                //     },
+                //     {
+                //       offset: 1,
+                //       color: "#43bef6", // 100% 处的颜色
+                //     },
+                //   ],
+                //   global: true,
+                // },
               }
+              // 鼠标悬停时的样式，优先级高于 series中的emphasis
+              // emphasis: {
+              //   color: "#ffffff",
+              //   areaColor: {
+              //     type: "radial",
+              //     x: 0.5,
+              //     y: 0.5,
+              //     r: 0.5,
+              //     colorStops: [
+              //       {
+              //         offset: 0.5,
+              //         color: "RGBA(0, 0, 0, 0.2)", // 0% 处的颜色
+              //       },
+              //       {
+              //         offset: 1,
+              //         color: "RGBA(31, 100, 187, 1)", // 100% 处的颜色
+              //       },
+              //     ],
+              //     globalCoord: false, // 缺省为 false
+              //   },
+              // },
             },
             label: {
+              show: true,
               formatter: '{c|{c}}\n{hr|} {b|{b}}',
               rich: {
                 c: {
@@ -625,29 +258,209 @@ export default {
                 }
               }
             },
-            data: dataList
+            data: mapData,
+            // 层级
+            z: 2,
+            // 选中模式(单选/多选/关闭)
+            selectedMode: 'single'
+            //  用于scale 地图的长宽比
+            // aspectScale: 0.85,
+            // 当前视角的缩放比例。
+            // zoom: 0.6,
           }
         ]
       }
-      myChart.setOption(option)
-      myChart.on('click', this.echartsMapClick)
+      // 这里加true是为了让地图重新绘制，不然如果你有筛选的时候地图会飞出去
+      this.mapChart.setOption(option, true)
+    },
+    // 获取地图数据
+    getGeoJson(mapName) {
+      // 通过导入获取数据
+      // const mapJson = require(`../../JSON/ning-xia/${mapName}.json`)
+      // this.getMapData(mapJson)
+      // 通过接口获取数据
+      const mapCode = cityToCode[mapName]
+      const url = 'json/map/' + mapCode + '.json'
+      axios.get(url, {}).then((response) => {
+        const JSON = response.data
+        this.getMapData(JSON)
+      })
+    },
+    // 获取数据
+    getMapData(Json) {
+      const that = this
+      // 通过接口获取数据
+      const resultData = Json.features.map((item) => {
+        return {
+          name: item.properties.name,
+          value: Math.ceil(Math.random() * 1000),
+          level: item.properties.level,
+          cityCode: item.properties.adcode
+        }
+      })
+      const dataList = []
+      // 将数据进行处理
+      resultData.forEach((item) => {
+        const dataItem = {
+          value: item.value,
+          name: item.name,
+          orgId:
+            that.cityOrgId[item.cityCode] || 'ff8080814c972f3f014c981fee3a171d',
+          funcType: item.funcType || '02',
+          label: {
+            show: true,
+            formatter: '{c|{c}}\n{hr|} {b|{b}}',
+            rich: {
+              c: {
+                fontSize: 24,
+                color: '#ffffff',
+                fontFamily: 'PangMenZhengDao',
+                align: 'center',
+                backgroundColor: {
+                  image: require('../../imgs/map/map-num-bg.png')
+                },
+                padding: [5, 0],
+                height: 27,
+                lineHeight: 27
+              },
+              hr: {
+                borderColor: '#18587D',
+                width: 12,
+                borderWidth: 3,
+                height: 40,
+                borderRadius: 6,
+                lineHeight: 40,
+                padding: [-14, 0, -14, 0]
+              },
+              b: {
+                color: '#FFFFFF',
+                fontSize: 16,
+                height: 40,
+                lineHeight: 40,
+                padding: [0, 0, 0, 5]
+              }
+            }
+          },
+          itemStyle: {
+            areaColor: {
+              type: 'radial',
+              x: 0.5,
+              y: 0.5,
+              r: 0.5,
+              colorStops: [
+                {
+                  offset: 0.5,
+                  color: 'RGBA(0, 0, 0, 0.2)' // 0% 处的颜色
+                },
+                {
+                  offset: 1,
+                  color: 'RGBA(31, 100, 187, 1)' // 100% 处的颜色
+                }
+              ],
+              globalCoord: false // 缺省为 false
+            },
+            borderColor: '#18587D',
+            borderWidth: 1
+          }
+        }
+        if (item.value <= that.mapSection[0][1]) {
+          dataItem.label.rich.hr.borderColor = '#18587D'
+          dataItem.itemStyle.areaColor.colorStops = [
+            {
+              offset: 0,
+              color: 'RGBA(24, 88, 125, 0.2)' // 0% 处的颜色
+            },
+            {
+              offset: 1,
+              color: 'RGBA(24, 88, 125, 1)' // 100% 处的颜色
+            }
+          ]
+          dataItem.itemStyle.borderColor = '#18587D'
+        } else if (
+          item.value >= that.mapSection[1][0] &&
+          item.value <= that.mapSection[1][1]
+        ) {
+          dataItem.label.rich.hr.borderColor = '#1061FF'
+          dataItem.itemStyle.areaColor.colorStops = [
+            {
+              offset: 0.5,
+              color: 'RGBA(16, 97, 255, 0.2)' // 0% 处的颜色
+            },
+            {
+              offset: 1,
+              color: 'RGBA(16, 97, 255, 1)' // 100% 处的颜色
+            }
+          ]
+          dataItem.itemStyle.borderColor = '#1061FF'
+        } else if (
+          item.value >= that.mapSection[2][0] &&
+          item.value <= that.mapSection[2][1]
+        ) {
+          dataItem.label.rich.hr.borderColor = '#00FFD5'
+          dataItem.itemStyle.areaColor.colorStops = [
+            {
+              offset: 0.2,
+              color: 'rgba(0, 255, 213, 0.1)' // 0% 处的颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(0, 255, 213, 0.7)' // 100% 处的颜色
+            }
+          ]
+          dataItem.itemStyle.borderColor = '#00FFD5'
+        } else if (
+          item.value >= that.mapSection[3][0] &&
+          item.value <= that.mapSection[3][1]
+        ) {
+          dataItem.label.rich.hr.borderColor = '#367CFF'
+          dataItem.itemStyle.areaColor.colorStops = [
+            {
+              offset: 0.5,
+              color: 'rgba(54, 124, 255, 0.1)' // 0% 处的颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(54, 124, 255, 0.6)' // 100% 处的颜色
+            }
+          ]
+          dataItem.itemStyle.borderColor = '#367CFF'
+        } else if (item.value > that.mapSection[4][0]) {
+          dataItem.label.rich.hr.borderColor = '#FDC345'
+          dataItem.itemStyle.areaColor.colorStops = [
+            {
+              offset: 0.5,
+              color: 'rgba(253, 195, 69, 0.1)' // 0% 处的颜色
+            },
+            {
+              offset: 1,
+              color: 'rgba(253, 195, 69, 0.6)' // 100% 处的颜色
+            }
+          ]
+          dataItem.itemStyle.borderColor = '#FDC345'
+        }
+        dataList.push(dataItem)
+      })
+      // 去渲染echarts
+      this.initEcharts(dataList, Json)
     },
     // 地图点击下钻的方法
     echartsMapClick(row) {
+      if (this.mapType >= 2) return
+      console.log(row, '地图点击事件的数据')
+      this.mapType++
+      this.parentMapNameList.push(row.data.name)
+      this.getGeoJson(row.data.name)
       this.$emit('mapClick', row.data)
     },
-    echartsMapClick2(row) {
-      if (row.CITY === '高新区') {
-        this.mapLeave = 1
-      } else {
-        this.mapLeave = 0
-      }
-      this.$emit('mapClick', row)
-    },
+    // 返回
     returnMap() {
-      if (this.mapLeave === 1) {
-        this.mapLeave = 0
-      }
+      if (this.parentMapNameList.length === 1) return
+      this.mapType--
+      // 删除最后一位
+      this.parentMapNameList.pop()
+      this.getGeoJson(
+        this.parentMapNameList[this.parentMapNameList.length - 1]
+      )
       this.$emit('returnMap')
     }
   }
@@ -655,7 +468,14 @@ export default {
 </script>
 
 <!--css样式-->
-<style scoped>
+<style lang='scss' scoped>
+.map-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* 地图 */
 #mapEchart {
   width: 100%;
@@ -668,5 +488,26 @@ export default {
   border: 0px;
 }
 .content-center-top {
+  /* background: url('../../assets/img/NX/diversionAnalysis/center-map-bg.png') no-repeat; */
+  /* background-size: 100% 220px; */
+  /* background-position-y: bottom; */
+}
+.map-return {
+  position: absolute;
+  right: 121px;
+  top: 11px;
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 100;
+  font-family: Microsoft YaHei;
+  color: #17BEFC;
+  .return-icon-size {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+  }
 }
 </style>
