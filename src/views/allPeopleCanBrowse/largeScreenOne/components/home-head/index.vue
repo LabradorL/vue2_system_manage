@@ -197,7 +197,7 @@ export default {
     border: 1px solid;
    border-color: #187da3;
    background: #061427;
-    box-shadow: inset 0px 0px 10px 0px rgba(54, 124, 255, 0.8);;
+    box-shadow: inset 0px 0px 10px 0px rgba(54, 124, 255, 0.8);
     margin-left: 10px;
     text-align: center;
     line-height: 40px;

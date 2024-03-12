@@ -5,7 +5,7 @@
       <div class="online-rate-item">
         <p class="right-three-name">FTU在线率</p>
         <img
-          src="../../imgs/common//icon-monitor-bottom-bg.png"
+          src="../../imgs/common/icon-monitor-bottom-bg.png"
           alt=""
         >
         <p class="right-three-num">32.43<span>%</span></p>
@@ -13,7 +13,7 @@
       <div class="online-rate-item">
         <p class="right-three-name">DTU在线率</p>
         <img
-          src="../../imgs/common//icon-monitor-bottom-bg.png"
+          src="../../imgs/common/icon-monitor-bottom-bg.png"
           alt=""
         >
         <p class="right-three-num">32.43<span>%</span></p>
@@ -21,7 +21,7 @@
       <div class="online-rate-item">
         <p class="right-three-name">融合终端在线率</p>
         <img
-          src="../../imgs/common//icon-monitor-bottom-bg.png"
+          src="../../imgs/common/icon-monitor-bottom-bg.png"
           alt=""
         >
         <p class="right-three-num">32.43<span>%</span></p>
@@ -29,7 +29,7 @@
       <div class="online-rate-item">
         <p class="right-three-name">故指在线率</p>
         <img
-          src="../../imgs/common//icon-monitor-bottom-bg.png"
+          src="../../imgs/common/icon-monitor-bottom-bg.png"
           alt=""
         >
         <p class="right-three-num">32.43<span>%</span></p>

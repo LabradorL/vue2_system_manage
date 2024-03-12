@@ -2,7 +2,7 @@
  * @Author: lixiaofeng
  * @Date: 2022-09-25 15:57:32
  * @LastEditors: 李晓风 1091616642@qq.com
- * @LastEditTime: 2024-02-04 10:07:32
+ * @LastEditTime: 2024-03-12 15:23:58
  * @Description: 路由配置
  */
 import Vue from 'vue'
@@ -129,6 +129,13 @@ export const functionRoutes = [
   {
     path: '/largeScreenOne',
     component: () => import('@/views/allPeopleCanBrowse/largeScreenOne/index.vue'),
+    hidden: false,
+    meta: { title: '大屏', icon: 'dashboard', affix: true }
+
+  },
+  {
+    path: '/largeScreenTwo',
+    component: () => import('@/views/allPeopleCanBrowse/largeScreenTwo/index.vue'),
     hidden: false,
     meta: { title: '大屏', icon: 'dashboard', affix: true }
 

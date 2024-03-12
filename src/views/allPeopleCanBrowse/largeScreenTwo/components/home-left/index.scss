@@ -1,0 +1,189 @@
+#diversion-analysis-left {
+  width: 420px;
+  height: calc(100% - 40px);
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  .body-box {
+    width: 100%;
+    height: 100%;
+  }
+  .left-one {
+    width: 100%;
+    height: calc(100% - 194px - 16px);
+    // height: calc(100% - 22.55% - 16px);
+    .body-box {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      .left-one-item-box {
+        .module-title {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-family: PangMenZhengDao;
+          font-size: 18px;
+          margin-bottom: 12px;
+          color: #fff;
+          .icon-img {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 3px;
+          }
+        }
+        .left-one-item-content {
+          display: flex;
+          .img-size {
+            width: 90px;
+            height: 88px;
+          }
+          .data-box {
+            width: 100%;
+            box-sizing: border-box;
+            background-image: url("../../imgs/home/left/left-one-iten-bg.png");
+            background-size: 100% 100%;
+            padding: 10px;
+            margin-left: 22px;
+            display: flex;
+            justify-content: space-around;
+
+            .data-box-item {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: space-around;
+              .data-item-title {
+                font-family: Microsoft YaHei;
+                color: #b0d1fa;
+                font-size: 14px;
+              }
+              .left-one-num {
+                font-size: 20px;
+                font-family: PangMenZhengDao;
+                color: #23c4fd;
+              }
+              .color-blue {
+                color: #00ffd5;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .left-two {
+    width: 100%;
+    height: 194px;
+    // height: 22.55%;
+    margin-top: 16px;
+    .head-right-box {
+      width: auto;
+      display: flex;
+      align-items: center;
+      .head-right-unit {
+        margin-right: 5px;
+        font-size: 14px;
+        font-family: Microsoft YaHei, Microsoft YaHei;
+        font-weight: 400;
+        color: #23c4fd;
+      }
+    }
+    .body-box {
+      .left-two-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        .title {
+          position: relative;
+          font-family: Microsoft YaHei;
+          font-weight: 700;
+          color: #fff;
+          font-size: 14px;
+          padding-left: 15px;
+
+          &::before {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 100%;
+            left: 0px;
+            background: linear-gradient(
+              90deg,
+              #23c4fd 0%,
+              rgba(35, 196, 253, 0) 100%
+            );
+          }
+        }
+        .device-num-box {
+          font-family: Microsoft YaHei;
+          font-weight: 400;
+          font-size: 10px;
+          font-size: 10px;
+          color: rgba(255, 255, 255, 0.8);
+          .device-num {
+            font-family: PangMenZhengDao;
+            font-weight: 400;
+            font-size: 20px;
+            color: #23c4fd;
+            margin-right: 3px;
+          }
+        }
+      }
+      .device-type-box {
+        color: #fff;
+        display: flex;
+        justify-content: space-around;
+        .device-type-item {
+          position: relative;
+          color: #fff;
+          opacity: 1;
+          display: flex;
+          flex-direction: column;
+          .img-box {
+            width: 84.46px;
+            height: 55px;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .icon-img {
+              width: 110%;
+              height: auto;
+              margin-top: 10px;
+            }
+          }
+          .num {
+            width: 97%;
+            font-family: PangMenZhengDao;
+            font-weight: 400;
+            font-size: 18px;
+            position: absolute;
+            top: 10px;
+            text-align: center;
+          }
+          .device-type-name {
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            font-size: 14px;
+            opacity: 0.9;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  .cont-title-head-right img.head-hint {
+    width: 16px;
+    height: 16px;
+  }
+  .attention-tips {
+    left: 420px;
+    top: calc(100% - 194px - 16px);
+  }
+}
