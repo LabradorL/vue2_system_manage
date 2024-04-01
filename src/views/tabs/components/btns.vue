@@ -1,8 +1,8 @@
 <!--
  * @Author: lixiaofeng
  * @Date: 2022-11-15 10:04:43
- * @LastEditors: lixiaofeng 1091616642@qq.com
- * @LastEditTime: 2023-02-03 15:02:11
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-04-01 15:36:20
  * @Description:卡片式的页签 相同的元素创建多次
 -->
 <template>

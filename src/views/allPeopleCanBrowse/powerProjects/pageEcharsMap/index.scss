@@ -3,7 +3,7 @@
   min-width: 1645px;
   height: 100%;
   padding: 20px;
-  background: url("./imgs/home/home-box-bg.png");
+  background: url("../imgs/home/home-box-bg.png");
   background-size: 100% 100%;
   display: flex;
   align-items: center;
@@ -28,7 +28,7 @@
 }
 .center-box ::v-deep .center-bottom-box {
   .cont-title-head {
-    background: url("./imgs/common/item_module_bg2.png") no-repeat;
+    background: url("../imgs/common/item_module_bg2.png") no-repeat;
     background-size: 100% 100%;
     background-position-y: 100%;
   }

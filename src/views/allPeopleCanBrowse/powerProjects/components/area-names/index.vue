@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import Clickoutside from 'element-ui/src/utils/clickoutside.js'
 
 export default {

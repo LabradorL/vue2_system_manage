@@ -488,7 +488,7 @@ export default {
   border: 0px;
 }
 .content-center-top {
-  /* background: url('../../assets/img/NX/diversionAnalysis/center-map-bg.png') no-repeat; */
+  /* background: url('../../imgs/map/map-num-bg.png') no-repeat; */
   /* background-size: 100% 220px; */
   /* background-position-y: bottom; */
 }

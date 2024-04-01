@@ -1,10 +1,10 @@
-import mapEchart from './components/map/map.vue'
-import homeLeft from './components/home-left/index.vue'
-import homeRight from './components/home-right/index.vue'
-import centerRight from './components/home-center/center-right.vue'
-import centerLeft from './components/home-center/center-left.vue'
-import centerBottom from './components/home-center/center-bottom.vue'
-import homeHead from './components/home-head/index.vue'
+import mapEchart from '../components/map/map.vue'
+import homeLeft from '../components/home-left/index.vue'
+import homeRight from '../components/home-right/index.vue'
+import centerRight from '../components/home-center/center-right.vue'
+import centerLeft from '../components/home-center/center-left.vue'
+import centerBottom from '../components/home-center/center-bottom.vue'
+import homeHead from '../components/home-head/index.vue'
 export default {
   components: {
     homeLeft,
@@ -22,6 +22,7 @@ export default {
     }
   },
   mounted() {
+    this.changeTheme('dark')
     this.$nextTick(() => {
       this.initBoard()
     })
@@ -46,7 +47,7 @@ export default {
     // 单位切换
     activeArea(data) {
       console.log('单位切换', data)
-      const { id, type, lon, lat, shortName, orgID, sname } = item
+      const { id, type, orgID } = data
       if (id) {
         this.activeOrgId = id
       } else {
@@ -73,6 +74,10 @@ export default {
           this.$refs.homeLeft.equipmentScaleTipsShow = false
         }
       }
+    },
+    // 页面主题切换
+    changeTheme(data) {
+      window.document.documentElement.setAttribute('data-theme', data) // 给根节点设置data-theme属性，切换主题色就是修改data-theme的值
     }
   }
 }

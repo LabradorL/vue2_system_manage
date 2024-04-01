@@ -1,8 +1,8 @@
 /*
  * @Author: lixiaofeng
  * @Date: 2022-11-10 17:58:58
- * @LastEditors: lixiaofeng 1091616642@qq.com
- * @LastEditTime: 2023-09-19 17:08:13
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-03-30 15:08:06
  * @Description: 测试获取各种数据
  */
 // import request from '@/utils/request'
@@ -933,6 +933,18 @@ export function writtingList() {
       annotation: []
     }
   ]
+  return new Promise((resolve, reject) => {
+    const result = {
+      code: 200,
+      msg: '成功',
+      rows: arr
+    }
+    resolve(result)
+  })
+}
+
+export function getOrg() {
+  const arr = []
   return new Promise((resolve, reject) => {
     const result = {
       code: 200,

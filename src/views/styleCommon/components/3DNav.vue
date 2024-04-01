@@ -26,7 +26,8 @@ export default {
       navList: [
         { path: '/all-people-can-browse-pie', name: '饼图图表合集' },
         { path: '/largeScreenOne', name: '大屏样式' },
-        { path: '/largeScreenTwo', name: '大屏样式2' }
+        { path: '/largeScreenTwo', name: '大屏样式2' },
+        { path: '/largeScreenThree', name: '大屏样式3' }
       ]
     }
   },

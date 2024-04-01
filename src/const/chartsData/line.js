@@ -1,8 +1,8 @@
 /*
  * @Author: lixiaofeng
  * @Date: 2023-04-28 11:51:08
- * @LastEditTime: 2023-06-07 10:12:26
- * @LastEditors: lixf@863jp.com.cn
+ * @LastEditTime: 2024-03-27 19:01:36
+ * @LastEditors: 李晓风 1091616642@qq.com
  * @Description: 关于折线图的数据和配置
  */
 // 饼图数据
@@ -11,83 +11,111 @@ export function getLineChartData(params) {
     const lineChartData = [
       {
         name: '涉企挂案',
-        monthList: [{
-          name: '2023年1月',
-          dataCount: 100
-        }, {
-          name: '2023年2月',
-          dataCount: 150
-        }, {
-          name: '2023年3月',
-          dataCount: 180
-        }, {
-          name: '2023年4月',
-          dataCount: 200
-        }, {
-          name: '2023年5月',
-          dataCount: 100
-        }, {
-          name: '2023年6月',
-          dataCount: 80
-        }, {
-          name: '2023年7月',
-          dataCount: 100
-        }, {
-          name: '2023年8月',
-          dataCount: 190
-        }, {
-          name: '2023年9月',
-          dataCount: 300
-        }, {
-          name: '2023年10月',
-          dataCount: 180
-        }, {
-          name: '2023年11月',
-          dataCount: 120
-        }, {
-          name: '2023年12月',
-          dataCount: 100
-        }]
-      }, {
+        monthList: [
+          {
+            name: '2023年1月',
+            dataCount: 100
+          },
+          {
+            name: '2023年2月',
+            dataCount: 150
+          },
+          {
+            name: '2023年3月',
+            dataCount: 180
+          },
+          {
+            name: '2023年4月',
+            dataCount: 200
+          },
+          {
+            name: '2023年5月',
+            dataCount: 100
+          },
+          {
+            name: '2023年6月',
+            dataCount: 80
+          },
+          {
+            name: '2023年7月',
+            dataCount: 100
+          },
+          {
+            name: '2023年8月',
+            dataCount: 190
+          },
+          {
+            name: '2023年9月',
+            dataCount: 300
+          },
+          {
+            name: '2023年10月',
+            dataCount: 180
+          },
+          {
+            name: '2023年11月',
+            dataCount: 120
+          },
+          {
+            name: '2023年12月',
+            dataCount: 100
+          }
+        ]
+      },
+      {
         name: '涉案车辆',
-        monthList: [{
-          name: '2023年1月',
-          dataCount: 70
-        }, {
-          name: '2023年2月',
-          dataCount: 100
-        }, {
-          name: '2023年3月',
-          dataCount: 130
-        }, {
-          name: '2023年4月',
-          dataCount: 160
-        }, {
-          name: '2023年5月',
-          dataCount: 190
-        }, {
-          name: '2023年6月',
-          dataCount: 210
-        }, {
-          name: '2023年7月',
-          dataCount: 190
-        }, {
-          name: '2023年8月',
-          dataCount: 160
-        }, {
-          name: '2023年9月',
-          dataCount: 190
-        }, {
-          name: '2023年10月',
-          dataCount: 210
-        }, {
-          name: '2023年11月',
-          dataCount: 230
-        }, {
-          name: '2023年12月',
-          dataCount: 260
-        }]
-      }]
+        monthList: [
+          {
+            name: '2023年1月',
+            dataCount: 70
+          },
+          {
+            name: '2023年2月',
+            dataCount: 100
+          },
+          {
+            name: '2023年3月',
+            dataCount: 130
+          },
+          {
+            name: '2023年4月',
+            dataCount: 160
+          },
+          {
+            name: '2023年5月',
+            dataCount: 190
+          },
+          {
+            name: '2023年6月',
+            dataCount: 210
+          },
+          {
+            name: '2023年7月',
+            dataCount: 190
+          },
+          {
+            name: '2023年8月',
+            dataCount: 160
+          },
+          {
+            name: '2023年9月',
+            dataCount: 190
+          },
+          {
+            name: '2023年10月',
+            dataCount: 210
+          },
+          {
+            name: '2023年11月',
+            dataCount: 230
+          },
+          {
+            name: '2023年12月',
+            dataCount: 260
+          }
+        ]
+      }
+    ]
     const result = {
       code: 200,
       msg: '成功',
@@ -101,7 +129,21 @@ export function getLineChartData(params) {
 // 折线图的options配置
 export const lineOptions = {
   // 折线图颜色
-  color: ['#006EE9FF', '#00CCFFFF', '#F5A43AFF', '#5470c6', '#5AADD4', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
+  color: [
+    '#006EE9FF',
+    '#00CCFFFF',
+    '#F5A43AFF',
+    '#5470c6',
+    '#5AADD4',
+    '#91cc75',
+    '#fac858',
+    '#ee6666',
+    '#73c0de',
+    '#3ba272',
+    '#fc8452',
+    '#9a60b4',
+    '#ea7ccc'
+  ],
   // 标题组件
   title: {
     show: false,
@@ -235,11 +277,11 @@ export const lineOptions = {
       symbol: ['none', 'arrow'],
       symbolSize: [8, 8]
     },
-    axisTick:{
+    axisTick: {
       show: true // 不显示坐标轴刻度线
     },
-    splitLine:{
-      show:false // 不显示网格线
+    splitLine: {
+      show: false // 不显示网格线
     },
     interval: 3
   },
@@ -265,10 +307,10 @@ export const lineOptions = {
       symbol: ['none', 'arrow'],
       symbolSize: [8, 8]
     },
-    axisTick:{
+    axisTick: {
       show: false // 不显示坐标轴刻度线
     },
-    splitLine:{
+    splitLine: {
       show: false // 不显示网格线
     }
   },
@@ -279,7 +321,24 @@ export const lineOptions = {
     // 数据窗口范围的结束数值 可以是数组下标，也可以是数组本身的值
     endValue: 5,
     // 缩放类型 inside slider select
-    type: 'inside'
+    type: 'inside',
+    start: 0, // 默认为0
+    end: 100 - 1500 / 31, // 默认为100
+    show: true,
+    xAxisIndex: [0],
+    handleSize: 0, // 滑动条的 左右2个滑动条的大小
+    height: 10, // 组件高度
+    left: '10%', // 左边的距离
+    right: '10%', // 右边的距离
+    bottom: 26, // 右边的距离
+    borderColor: '#000',
+    fillerColor: '#269cdb',
+    borderRadius: 5,
+    backgroundColor: '#33384b', // 两边未选中的滑动条区域的颜色
+    showDataShadow: false, // 是否显示数据阴影 默认auto
+    showDetail: false, // 即拖拽时候是否显示详细数值信息 默认true
+    realtime: true, // 是否实时更新
+    filterMode: 'filter'
   },
   // 数据组件
   series: []

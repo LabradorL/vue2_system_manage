@@ -86,4 +86,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   ### 各功能用到的插件
   ···
     1. qrcodejs2 生成二维码
+    2. 
   ···

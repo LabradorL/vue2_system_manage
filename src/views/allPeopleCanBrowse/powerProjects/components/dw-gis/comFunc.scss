@@ -1,0 +1,143 @@
+/**
+    西安配电业务部
+    张凯
+    2022年3月13日10:13:20
+*/
+// 公共方法
+
+// 默认颜色
+$defaultColor: #0E8D8A;
+//$defaultColor: #2b80cc;
+$defaultActiveColor: #034f69;
+$orangeColor: #f89310;
+$yellowColor: #F6d380;
+$redColor: #e74c3c;
+
+$fontColorOne: #333333;
+$fontColorTwo: #666;
+$fontColorThree: #999;
+$fontColorFour: #34CB99;
+$lineColor: #f7f7f7;
+
+// 字体颜色
+@mixin color($color: $fontColorOne) {
+    color: $color;
+}
+
+// 字体大小
+@mixin fontSize($size: 14px) {
+    font-size: $size;
+}
+
+@mixin widthHeight($width,$height:null) {
+    width: $width;
+    @if $height {
+        height: $height;
+    } @else {
+        height: $width;
+    }
+}
+
+// 行高和高度
+@mixin lineHeight($height: 40px) {
+    height: $height;
+    line-height: $height;
+}
+
+// 背景颜色
+@mixin bgColor($color: #fff) {
+    background-color: $color;
+}
+
+// 定位类型
+@mixin position($position: absolute) {
+    position: $position;
+}
+
+// 位置
+@mixin trbl($t:null, $r:null, $b:null, $l:null, $zIndex: 5) {
+    @if $t {
+        top: $t;
+    }
+
+    @if $r {
+        right: $r;
+    }
+
+    @if $b {
+        bottom: $b;
+    }
+
+    @if $l {
+        left: $l;
+    }
+
+    z-index: $zIndex;
+}
+
+// 文字超出隐藏
+@mixin visibleFont() {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@mixin visibleFontLine($line:2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+}
+
+@mixin displayFlex() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin flexColumn() {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin scrollBar($size:4px,$scrollColor:$defaultActiveColor) {
+    /*浏览器滚动条样式*/
+    scrollbar-3dlight-color: #999;
+    scrollbar-darkshadow-color: #999;
+    scrollbar-highlight-color: #fff;
+    scrollbar-shadow-color: #eee;
+    scrollbar-arrow-color: #000;
+    scrollbar-face-color: rgba(50, 133, 255, 0.5);
+    scrollbar-track-color: #eee;
+    scrollbar-base-color: #ddd;
+
+    &::-webkit-scrollbar {
+        width: $size;
+        height: $size;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 0;
+        @include bgColor(transparent);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 0;
+        min-height: 20px;
+        background-clip: content-box;
+        @include bgColor($scrollColor);
+    }
+
+    &::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+
+@mixin comFont() {
+    font-family: 'YouSheBiaoTi','MicrosoftYaHei', '微软雅黑';
+}
+
+
+
+
+
