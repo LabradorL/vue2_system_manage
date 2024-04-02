@@ -84,7 +84,7 @@ export default {
           this.activeOrgId,
           this.activeFuncType
         )
-        if (this.activeFuncType == '02' || this.activeFuncType == '03') {
+        if (this.activeFuncType === '02' || this.activeFuncType === '03') {
           this.$refs.abnormalHomeRight.init(
             this.startTime,
             this.endTime,
@@ -167,18 +167,18 @@ export default {
           this.$refs.dwGis.login()
         }
         // 初始化数据
-        // this.$refs.abnormalHomeLeft.init(
-        //   this.startTime,
-        //   this.endTime,
-        //   this.activeOrgId,
-        //   this.activeFuncType
-        // )
-        // this.$refs.abnormalHomeRight.init(
-        //   this.startTime,
-        //   this.endTime,
-        //   this.activeOrgId,
-        //   this.activeFuncType
-        // )
+        this.$refs.abnormalHomeLeft.init(
+          this.startTime,
+          this.endTime,
+          this.activeOrgId,
+          this.activeFuncType
+        )
+        this.$refs.abnormalHomeRight.init(
+          this.startTime,
+          this.endTime,
+          this.activeOrgId,
+          this.activeFuncType
+        )
       })
     },
 

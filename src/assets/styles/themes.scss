@@ -14,9 +14,17 @@ $themes: (
     font_color_gray: #dcdcdc,
     font_color_black: #081d3d,
     font_color_yellow: #fdd245,
+    // 边框
+    border_color: #1c1c1d,
     // 背景
     background_color_pagination_bg: #02214b,
     background_color_pagination_bg2: #021737,
+    background_color_progress1: rgba(25, 152, 250, 0.1),
+    background_color_progress1_bg:
+      linear-gradient(270deg, #55ceff 0%, rgba(38, 111, 170, 0.55) 100%),
+    background_color_progress2: rgba(253, 195, 69, 0.1),
+    background_color_progress2_bg:
+      linear-gradient(90deg, #fdc345 0%, rgba(253, 195, 69, 0.5) 100%),
     // 图例
     background_color_legend: #ebebeb,
     // 阴影

@@ -1,4 +1,4 @@
-import comTitle from '../com-title/com-title.vue'
+import comTitle from '../../components/com-title/com-title.vue'
 export default {
   components: { comTitle },
   data() {

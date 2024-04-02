@@ -1,9 +1,9 @@
 import mapEchart from '../components/map/map.vue'
-import homeLeft from '../components/home-left/index.vue'
-import homeRight from '../components/home-right/index.vue'
-import centerRight from '../components/home-center/center-right.vue'
-import centerLeft from '../components/home-center/center-left.vue'
-import centerBottom from '../components/home-center/center-bottom.vue'
+import homeLeft from './home-left/index.vue'
+import homeRight from './home-right/index.vue'
+import centerRight from './home-center/center-right.vue'
+import centerLeft from './home-center/center-left.vue'
+import centerBottom from './home-center/center-bottom.vue'
 import homeHead from '../components/home-head/index.vue'
 export default {
   components: {

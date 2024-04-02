@@ -10,8 +10,9 @@ export default {
     return {
       // 具备遥控功能的终端 - 统计
       rightTwoCountObj: {},
-      // 遥控实验终端数统计
-      transferCountObj: {},
+      // 线路异常区域分析
+      lineAbnormalOptions: [],
+      lineTotal: 0,
       startTime: '',
       endTime: '',
       orgId: '',
@@ -23,10 +24,10 @@ export default {
   mounted() {},
   methods: {
     showTips(type) {
-      if (type == 1) {
+      if (type === 1) {
         this.rightHint1Show = true
         return
-      } else if (type == 2) {
+      } else if (type === 2) {
         this.rightHint2Show = true
         return
       }
@@ -42,63 +43,21 @@ export default {
       }
       // 获取 具备遥控功能的终端 - 统计
       this.getHaveTransferCount(params)
-      // 遥控实验终端数统计
-      this.getTransferCount(params)
+      // 获取线路异常区域分析数据
+      this.getLineAnomalies()
     },
-    // 打开弹框
-    openTableDialog(dialogType, terminalType, controlledType) {
-      // dialogType 弹框类型
-      // terminalType 终端类型 0 全部 1 FTU 2 DTU
-      // controlledType 1 遥控次数 0 未遥控次数
-      switch (dialogType) {
-        // 遥控指标统计
-        case 0:
-          break
-        // 具备遥控功能的终端
-        case 1:
-          this.$refs.rightDtuDialog.openDialog(
-            this.startTime,
-            this.endTime,
-            this.orgId,
-            this.funcType,
-            terminalType
-          )
-          break
-        // 遥控实验终端数（年度）
-        case 2:
-          this.$refs.rightDtuDialog.openDialog(
-            this.startTime,
-            this.endTime,
-            this.orgId,
-            this.funcType,
-            terminalType,
-            controlledType
-          )
-          break
-        case 3:
 
-          this.$refs.remoteControlReport.openDialogInit(
-            this.startTime,
-            this.endTime,
-            this.orgId,
-            this.funcType
-          )
-          break
-        case 4:
-
-          this.$refs.remoteSwitch.openDialogInit(
-            this.startTime,
-            this.endTime,
-            this.orgId,
-            this.funcType
-          )
-          break
-        default:
-          break
-      }
-    },
     // 具备遥控功能的终端 - 统计
     getHaveTransferCount(params) {
+      const data = {
+        total: 10282,
+        dtuCount: 2905,
+        ftuCount: 7377,
+        dtuPercent: 28.25,
+        ftuPercent: 71.75
+      }
+      this.rightTwoCountObj = data
+      this.functionalTerminalEchart(data)
       // this.$axios
       //   .post(homApi.analyse.haveTransferCount, params)
       //   .then(({ code, data }) => {
@@ -120,7 +79,7 @@ export default {
       // console.log('gap',gap);
       const data = []
       const color = ['#23C4FD', '#FDC345']
-      for (var i = 0; i < trafficWay.length; i++) {
+      for (let i = 0; i < trafficWay.length; i++) {
         data.push(
           {
             value: trafficWay[i].value,
@@ -173,16 +132,95 @@ export default {
         myChart.resize()
       })
     },
+    // 获取线路异常区域分析数据
+    getLineAnomalies() {
+      const param = {
+        orgId: this.orgId,
+        endDate: this.endTime,
+        startDate: this.startTime,
+        funcType: this.funcType,
+        isNow: '0'
+      }
+      console.log('线路异常参数', param)
+      this.lineAbnormalList = [{
+        shortName: '银川',
+        num: 123
+      }, {
+        shortName: '吴忠',
+        num: 123
+      }, {
+        shortName: '石嘴山',
+        num: 123
+      }, {
+        shortName: '中卫',
+        num: 123
+      }, {
+        shortName: '宁东',
+        num: 123
+      }, {
+        shortName: '固原',
+        num: 123
+      }]
+      this.lineTotal = this.lineAbnormalList.reduce((sum, currentItem) => { return sum + currentItem.num }, 0)
+      // this.$axios.post(homApi.getLineAreaStatistic, param).then(({ code, data }) => {
+      //   if (code == 200 && data) {
+      //     console.log(data)
+      //     this.lineAbnormalList = data
+      //     this.lineTotal = data.reduce((sum, currentItem) => { return sum + currentItem.num }, 0)
+      //   }
+      // })
+    },
+    // 打开弹框
+    openTableDialog(dialogType, terminalType, controlledType) {
+      // dialogType 弹框类型
+      // terminalType 终端类型 0 全部 1 FTU 2 DTU
+      // controlledType 1 遥控次数 0 未遥控次数
+      switch (dialogType) {
+        // 遥控指标统计
+        case 0:
+          break
+        // 具备遥控功能的终端
+        case 1:
+          this.$refs.rightDtuDialog.openDialog(
+            this.startTime,
+            this.endTime,
+            this.orgId,
+            this.funcType,
+            terminalType
+          )
+          break
+        // 遥控实验终端数（年度）
+        case 2:
+          this.$refs.rightDtuDialog.openDialog(
+            this.startTime,
+            this.endTime,
+            this.orgId,
+            this.funcType,
+            terminalType,
+            controlledType
+          )
+          break
+        case 3:
 
-    // 遥控实验终端数 - 统计
-    getTransferCount(params) {
-      // this.$axios
-      //   .post(homApi.analyse.transferCount, params)
-      //   .then(({ code, data }) => {
-      //     if (code === 200) {
-      //       this.transferCountObj = data
-      //     }
-      //   })
+          this.$refs.remoteControlReport.openDialogInit(
+            this.startTime,
+            this.endTime,
+            this.orgId,
+            this.funcType
+          )
+          break
+        case 4:
+
+          this.$refs.remoteSwitch.openDialogInit(
+            this.startTime,
+            this.endTime,
+            this.orgId,
+            this.funcType
+          )
+          break
+        default:
+          break
+      }
     }
   }
 }

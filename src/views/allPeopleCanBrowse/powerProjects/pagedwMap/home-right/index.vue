@@ -1,22 +1,70 @@
 <template>
   <div id="diversion-analysis-right">
-    <!-- 遥控指标统计 -->
-
+    <!-- 线路异常区域分析 -->
+    <div class="abnormal-right-item right-one mb-16">
+      <com-title title-name="线路异常区域分析">
+        <div slot="headRight" class="head-right-box">
+          <div
+            v-for="item in lineAbnormalOptions"
+            :key="item.type"
+            :class="[
+              'head-right-unit',
+              activeLineAbnormal === item.value ? 'head-right-unit-active' : '',
+            ]"
+            @click="changeAnomaliesType(item.value)"
+          >
+            {{ item.label }}
+          </div>
+        </div>
+        <div slot="titleBody" class="left-bottom body-box">
+          <div class="left-bottom-list">
+            <div
+              v-for="(item, index) in lineAbnormalList"
+              :key="index"
+              class="right-top-item"
+            >
+              <p class="right-top-item-name">{{ item.shortName }}</p>
+              <div class="right-top-item-progress-box">
+                <div
+                  class="right-top-item-progress"
+                  :style="{width: `${lineTotal == 0 ? '0' : ((item.num/lineTotal * 100).toFixed(2))}%`}"
+                />
+              </div>
+              <p class="right-top-item-num">
+                {{ item.num }}<span>次</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </com-title>
+    </div>
     <!-- 具备遥控功能的终端 -->
     <div class="right-two">
       <com-title title-name="具备遥控功能的终端">
         <div slot="titleBody" class="body-box">
           <div class="left-bottom-left">
             <div id="functionalTerminalEchart" />
-            <img class="left-bottom-echart-bg" src="../imgs/right/echart-bg.png" alt="">
-            <p class="left-bottom-echart-icon" @click="openTableDialog(1, 0, null)">{{ rightTwoCountObj.total || 0 }}</p>
+            <img
+              class="left-bottom-echart-bg"
+              src="../imgs/right/echart-bg.png"
+              alt=""
+            >
+            <p
+              class="left-bottom-echart-icon"
+              @click="openTableDialog(1, 0, null)"
+            >
+              {{ rightTwoCountObj.total || 0 }}
+            </p>
           </div>
           <div class="left-bottom-right">
             <div class="left-bottom-item">
               <p class="left-bottom-item-icon" />
               <div class="left-bottom-item-right">
                 <p class="left-bottom-item-name">FTU（台）</p>
-                <p class="left-bottom-item-num pointer" @click="openTableDialog(1, 1, null)">
+                <p
+                  class="left-bottom-item-num pointer"
+                  @click="openTableDialog(1, 1, null)"
+                >
                   <span>{{ rightTwoCountObj.ftuCount || 0 }}</span>
                   <span>/</span>
                   <span>{{ rightTwoCountObj.ftuPercent || 0 }}%</span>
@@ -27,8 +75,13 @@
               <p class="left-bottom-item-icon" />
               <div class="left-bottom-item-right">
                 <p class="left-bottom-item-name">DTU（台）</p>
-                <p class="left-bottom-item-num" @click="openTableDialog(1, 2, null)">
-                  <span class="pointer">{{ rightTwoCountObj.dtuCount || 0 }}</span>
+                <p
+                  class="left-bottom-item-num"
+                  @click="openTableDialog(1, 2, null)"
+                >
+                  <span class="pointer">{{
+                    rightTwoCountObj.dtuCount || 0
+                  }}</span>
                   <span>/</span>
                   <span>{{ rightTwoCountObj.dtuPercent || 0 }}%</span>
                 </p>
@@ -38,54 +91,7 @@
         </div>
       </com-title>
     </div>
-    <!-- 遥控实验终端数 -->
-    <div class="right-three">
-      <com-title title-name="遥控试验（年度）">
-        <div slot="headRight" class="head-right-box">
-          <div class="report" @click="openTableDialog(3)">
-            <div class="img-box">
-              <!-- <img src="@/assets/img/NX/report_icon.png" alt=""> -->
-            </div>
-            <span>报表</span>
-          </div>
-          <el-divider direction="vertical" />
-          <img
-            id="rightHint2"
-            class="head-hint"
-            src="../../imgs/common/icon-hint.png"
-            alt=""
-            @click="showTips(2)"
-          >
-        </div>
-        <div slot="titleBody" class="body-box">
-          <div class="right-bottom-top">
-            <div class="right-bottom-top-text">
-              <p>遥控进度</p>
-              <p class="right-bottom-top-num">40.32<span>%</span></p>
-            </div>
-            <div class="right-bottom-progress-box">
-              <div class="right-bottom-progress" />
-            </div>
-          </div>
-          <div class="right-bottom-li">
-            <div class="right-bottom-item">
-              <div class="right-bottom-item-left">
-                <!-- <img src="@/assets/img/NX/right-bottom-li-active.png" alt=""> -->
-                <p>已遥控开关数</p>
-              </div>
-              <p class="right-bottom-item-num" @click="openTableDialog(4, 2, 1)">80<span>台</span></p>
-            </div>
-            <div class="right-bottom-item">
-              <div class="right-bottom-item-left">
-                <!-- <img src="@/assets/img/NX/right-bottom-li.png" alt=""> -->
-                <p>未遥控开关数</p>
-              </div>
-              <p class="right-bottom-item-num">80<span>台</span></p>
-            </div>
-          </div>
-        </div>
-      </com-title>
-    </div>
+
 
     <!-- FTU的弹框 -->
     <!--FTU的弹框\ DTU的弹框 -->
@@ -129,8 +135,168 @@
     width: 100%;
     height: 100%;
   }
+  .head-right-box {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .head-right-unit {
+      margin-right: 10px;
+      font-size: 14px;
+      font-family: Microsoft YaHei, Microsoft YaHei;
+      font-weight: bold;
+      @include font_color("font_color_white");
+      width: 32px;
+    }
+    .head-right-unit-active {
+      @include font_color("font_color_blue");
+    }
+    .head-right-unit:last-child {
+      margin-right: 0px;
+    }
+    .el-select {
+      .el-input__inner {
+        border: none;
+        font-family: Microsoft YaHei;
+        font-size: 14px;
+        text-align: right;
+      }
+      .el-input {
+        .el-select__caret {
+          // @include font_color("cont_color_blue");
+          color: #23c4fd;
+        }
+      }
+    }
+  }
 
-  //
+  .abnormal-right-item {
+    width: 100%;
+    height: calc((100% - 16px) / 2);
+    .left-bottom-list {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .right-top-item {
+        width: 100%;
+        height: 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .right-top-item-name {
+          width: 64px;
+          height: 26px;
+          position: relative;
+          // background: url("../../../assets/img/NX/insulation-warning-name-bg.png");
+          // background-size: 100% 100%;
+          @include font_color("font_color_white");
+          text-align: center;
+          line-height: 26px;
+          font-size: 16px;
+          // font-family: PangMenZhengDao, PangMenZhengDao-3;
+          font-weight: 400;
+        }
+        .right-top-item-num {
+          width: 64px;
+          height: 26px;
+          line-height: 26px;
+          text-align: right;
+          @include font_color("font_color_blue5");
+          font-size: 20px;
+          font-family: PangMenZhengDao, PangMenZhengDao;
+          font-weight: 400;
+          //display: flex;
+          //align-items: center;
+          //justify-content: end;
+          span {
+            font-size: 10px;
+            margin-left: 4px;
+          }
+        }
+        .right-top-item-progress-box {
+          width: calc(100% - 168px);
+          .right-top-item-progress {
+            height: 6px;
+            background: linear-gradient(90deg, #23c4fd 0%, #9de5ff 100%);
+            position: relative;
+          }
+          .right-top-item-progress::before {
+            position: absolute;
+            right: -1px;
+            top: -2px;
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(90deg, #b5ecff 0%, #ffffff 100%);
+            border-radius: 50%;
+            // z-index: 9;
+          }
+          .right-top-item-progress::after {
+            position: absolute;
+            right: 0;
+            content: "";
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(
+              90deg,
+              rgba(181, 236, 255, 0.5) 0%,
+              rgba(35, 196, 253, 0.5) 100%
+            );
+            border-radius: 50%;
+            filter: blur(6px);
+          }
+        }
+      }
+    }
+  }
+  .abnormal-right-item.right-one {
+    .left-bottom-list {
+      .right-top-item {
+        .right-top-item-name {
+          // background: url("../../../assets/img/NX/insulation-warning-name-bg2.png");
+          // background-size: 100% 100%;
+          @include font_color("font_color_white");
+        }
+        .right-top-item-num {
+          @include font_color("font_color_yellow");
+        }
+        .right-top-item-progress-box {
+          width: calc(100% - 168px);
+          .right-top-item-progress {
+            height: 6px;
+            background: linear-gradient(90deg, #fdc345 0%, #ffe09c 100%);
+            position: relative;
+          }
+          .right-top-item-progress::before {
+            position: absolute;
+            right: -1px;
+            top: -2px;
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(270deg, #ffe09c 0%, #ffffff 100%);
+            border-radius: 50%;
+            // z-index: 9;
+          }
+          .right-top-item-progress::after {
+            position: absolute;
+            right: 0;
+            content: "";
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(
+              270deg,
+              rgba(255, 224, 156, 0.5) 0%,
+              rgba(253, 195, 69, 0.5) 100%
+            );
+            border-radius: 50%;
+            filter: blur(6px);
+          }
+        }
+      }
+    }
+  }
   .right-two {
     width: 100%;
     // height: calc((100% - 248px) / 2);
@@ -235,129 +401,7 @@
       }
     }
   }
-  .right-three {
-    width: 100%;
-    // height: calc((100% - 248px) / 2);
-    height: calc((74.89% - 32px) / 2);
-    .head-right-box {
-      display: flex;
-      align-items: center;
-    }
-    .report {
-      font-family: Microsoft YaHei;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      .img-box {
-        width: 16px;
-        height: 16px;
-        background: rgba(35, 196, 253, 0.2);
-        margin-right: 5px;
-        border-radius: 50%;
-        text-align: center;
-        img {
-          width: 75%;
-          height: 75%;
-        }
-      }
-    }
-    .body-box {
-      display: flex;
-      justify-content: space-around;
-      flex-direction: column;
-    }
-    .right-bottom-top {
-      width: 100%;
-      margin-bottom: 15px;
-      height: 60px;
-      // height: 95px;
-      // display: flex;
-      // justify-content: space-between;
-    }
-    .right-bottom-progress-box {
-      width: 100%;
-      height: 16px;
-      background: rgba(23, 123, 104, 0.2);
-    }
-    .right-bottom-progress {
-      border-left: 2px solid;
-      @include border_color("font_color_green");
-      height: 100%;
-      background: linear-gradient(
-        270deg,
-        #00ffd5 0%,
-        rgba(0, 255, 213, 0.2) 100%
-      );
-    }
-    .right-bottom-top-text {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: Microsoft YaHei, Microsoft YaHei;
-      font-weight: 700;
-      font-size: 14px;
-      @include font_color("font_color_white");
-      margin-bottom: 12px;
-      .right-bottom-top-num {
-        font-family: DINPro, DINPro;
-        font-weight: 700;
-        font-size: 24px;
-        @include font_color("font_color_green3");
-        span {
-          font-weight: 400;
-          font-size: 15px;
-        }
-      }
-    }
-    .right-bottom-li {
-      width: 100%;
-      height: calc(100% - 75px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .right-bottom-item {
-      width: 100%;
-      height: 64px;
-      background: url("../imgs/right/right-bottom-bg.png") no-repeat;
-      background-size: 100% 100%;
-      padding-left: 16px;
-      display: flex;
-      justify-content: space-between;
-      padding-top: 20px;
-      padding-bottom: 20px;
-      .right-bottom-item-left {
-        display: flex;
-        align-items: center;
-        font-family: Microsoft YaHei, Microsoft YaHei;
-        font-weight: 400;
-        font-size: 14px;
-        @include font_color("font_color_white");
-        img {
-          width: 48px;
-          height: 48px;
-          margin-left: -12px;
-          margin-top: 8px;
-        }
-      }
-      .right-bottom-item-num {
-        font-family: DINPro, DINPro;
-        font-weight: 700;
-        font-size: 20px;
-        @include font_color("font_color_green3");
-        cursor: pointer;
-        span {
-          font-family: Microsoft YaHei, Microsoft YaHei;
-          font-weight: 400;
-          font-size: 10px;
-          margin-left: 2px;
-        }
-      }
-    }
-    .right-bottom-item:nth-child(2) .right-bottom-item-num {
-      @include font_color("font_color_white");
-    }
-  }
+
   .pointer {
     cursor: pointer;
   }
