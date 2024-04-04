@@ -288,7 +288,6 @@
 
 <style lang="scss" scoped>
 // @import "./index.scss";
-@import "@/assets/styles/themes.scss";
 
 #content-left-box {
   width: 420px;

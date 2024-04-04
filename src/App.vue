@@ -2,7 +2,7 @@
  * @Author: lixiaofeng
  * @Date: 2022-09-25 15:57:32
  * @LastEditors: 李晓风 1091616642@qq.com
- * @LastEditTime: 2024-03-30 16:40:11
+ * @LastEditTime: 2024-04-04 18:21:52
  * @Description: 页面入口
 -->
 <template>
@@ -27,8 +27,10 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" src='./views/allPeopleCanBrowse/powerProjects/css/map.scss'>
 
+</style>
+<style lang="scss">
 // html, body {
 // 	min-width: 1200px;
 // 	margin: 0;

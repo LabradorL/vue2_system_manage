@@ -1,8 +1,8 @@
 /*
  * @Author: lixiaofeng
  * @Date: 2022-11-20 19:13:28
- * @LastEditTime: 2023-02-03 09:46:58
- * @LastEditors: lixiaofeng 1091616642@qq.com
+ * @LastEditTime: 2024-04-04 18:29:45
+ * @LastEditors: 李晓风 1091616642@qq.com
  * @Description:
  */
 const getters = {
@@ -21,6 +21,7 @@ const getters = {
   permission_routes: state => state.permission.routes,
   topbarRouters:state => state.permission.topbarRouters,
   defaultRoutes:state => state.permission.defaultRoutes,
-  sidebarRouters:state => state.permission.sidebarRouters
+  sidebarRouters:state => state.permission.sidebarRouters,
+  userInfo:state => state.mapInfo.userInfo
 }
 export default getters

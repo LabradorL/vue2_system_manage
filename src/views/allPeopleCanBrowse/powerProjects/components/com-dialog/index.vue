@@ -67,7 +67,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/styles/themes.scss";
+// @import "@/assets/styles/mixin.scss";
 ::v-deep .el-dialog{
   width: 1600px  !important;
   height: 800px !important;

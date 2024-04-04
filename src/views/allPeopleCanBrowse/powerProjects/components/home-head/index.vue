@@ -7,7 +7,7 @@
         @activeArea="activeArea"
         @allData="allData"
       />
-      <!-- <div class="top-page-time">
+      <div class="top-page-time">
         <el-date-picker
           @change="getTimeChange"
           class="time-change"
@@ -22,7 +22,7 @@
           :picker-options="timeChange"
         >
         </el-date-picker>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>

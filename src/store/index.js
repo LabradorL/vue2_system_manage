@@ -1,8 +1,8 @@
 /*
  * @Author: lixiaofeng
  * @Date: 2022-09-26 18:12:52
- * @LastEditors: lixiaofeng
- * @LastEditTime: 2022-10-09 15:39:04
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-04-04 10:57:06
  * @Description:
  */
 import Vue from 'vue'
@@ -10,6 +10,7 @@ import Vuex from 'vuex'
 import app from './modules/app'
 // import dict from './modules/dict'
 import user from './modules/user'
+import mapInfo from './modules/mapInfo'
 import tagsView from './modules/tagsView'
 import permission from './modules/permission'
 import settings from './modules/settings'
@@ -24,7 +25,8 @@ const store = new Vuex.Store({
     user,
     tagsView,
     permission,
-    settings
+    settings,
+    mapInfo
   },
   getters
 })

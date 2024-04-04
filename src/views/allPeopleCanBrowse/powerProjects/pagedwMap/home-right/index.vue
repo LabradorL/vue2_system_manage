@@ -122,7 +122,6 @@
 </template>
 <script src="./index.js"></script>
 <style lang="scss" scoped>
-@import "@/assets/styles/themes.scss";
 #diversion-analysis-right {
   width: 420px;
   // width: 21.87%;

@@ -1,0 +1,44 @@
+// 地图添加遮罩
+.sgmap-canvas-container.sgmap-touch-zoom-rotate.sgmap-touch-drag-pan {
+  height: 100%;
+}
+.sgmap-canvas-container.sgmap-touch-zoom-rotate.sgmap-touch-drag-pan::after {
+  width: 500px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #011022 0%,
+    rgba(4, 27, 55, 0.8) 80%,
+    rgba(1, 17, 34, 0) 100%
+  );
+  background-size: 100% 100%;
+  content: "";
+  position: absolute;
+  z-index: 9999;
+}
+// 打点的图标样式
+.map-icon-common {
+  width: 60px;
+  height: 62px;
+  margin-top: -30px;
+}
+//重载
+.red-icon {
+  background: url("../imgs/map/red.png");
+  background-size: 100% 100%;
+}
+// 过载
+.yellow-icon {
+  background: url("../imgs/map/yellow.png");
+  background-size: 100% 100%;
+}
+// 三相不平衡
+.blue-icon {
+  background: url("../imgs/map/deep-blue.png");
+  background-size: 100% 100%;
+}
+// 低电压
+.deep-blue-icon {
+  background: url("../imgs/map/blue.png");
+  background-size: 100% 100%;
+}

@@ -192,15 +192,15 @@ export default {
     drawCityMarker(markerArr, clickBack) {
       if (markerArr) {
         markerArr.forEach((item, i) => {
-          const { lat, lon, shortName, num, nowNum } = item
-          const el = document.createElement('div')
+          const { lat, lon, sname, total, current } = item;
+          const el = document.createElement("div");
           const htmlData = `<div class="marker-city-point">
-                    <span class="city-point-icon"></span>
-                    <span class="city-point-name">${shortName}</span>
-                    <span class="city-point-num1">${num || 0}</span>
-                    <span class="city-point-line">/</span>
-                    <span class="city-point-num2">${nowNum || 0}</span>
-                    </div>`
+                      <span class="city-point-icon"></span>
+                      <span class="city-point-name">${sname}</span>
+                      <span class="city-point-num1">${total || 0}</span>
+                      <span class="city-point-line">/</span>
+                      <span class="city-point-num2">${current || 0}</span>
+                      </div>`;
           el.innerHTML = htmlData
           el.style.cursor = 'pointer'
           const marker = new narimap.Marker({
@@ -219,15 +219,15 @@ export default {
       if (markerArr) {
         markerArr.forEach((item, i) => {
           const { coordinate } = item
-          let iconClass = ''
-          if (item.abnoreType == '2') {
-            iconClass = 'heavy-load'
-          } else if (item.abnoreType == '1') {
-            iconClass = 'overload'
-          } else if (item.abnoreType == '3') {
-            iconClass = 'three-phase-unbalance'
-          } else if (item.abnoreType == '5') {
-            iconClass = 'low-voltage'
+          let iconClass = "map-icon-common red-icon";
+          if (item.gzType == "2") {
+            iconClass = "map-icon-common red-icon";
+          } else if (item.gzType == "1") {
+            iconClass = "map-icon-common yellow-icon";
+          } else if (item.gzType == "3") {
+            iconClass = "map-icon-common deep-blue-icon";
+          } else if (item.gzType == "5") {
+            iconClass = "map-icon-common blue-icon";
           }
           if (coordinate) {
             const coordinates = coordinate
@@ -263,7 +263,7 @@ export default {
       }
     },
     // 地图故障分析打点
-    mapMalfunctionPointClick(item, YXJCclick) {
+    mapPointClick(item, YXJCclick) {
       // 线路名称
       item.name = item.name == null ? '' : item.name
       // 单位名称

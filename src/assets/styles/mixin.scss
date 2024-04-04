@@ -62,3 +62,98 @@
     border-bottom: $transparent-border-style;
   }
 }
+
+$themes: (
+  dark: (
+    //字体
+    font_color_white: #ffffff,
+    font_color_white_08: rgba(255, 255, 255, 0.8),
+    font_color_999: #999999,
+    font_color_blue: #23c4fd,
+    font_color_green: #00ffd5,
+    font_color_gray: #dcdcdc,
+    font_color_black: #081d3d,
+    font_color_yellow: #fdd245,
+    // 边框
+    border_color: #1c1c1d,
+    // 背景
+    background_color_pagination_bg: #02214b,
+    background_color_pagination_bg2: #021737,
+    background_color_progress1: rgba(25, 152, 250, 0.1),
+    background_color_progress1_bg:
+      linear-gradient(270deg, #55ceff 0%, rgba(38, 111, 170, 0.55) 100%),
+    background_color_progress2: rgba(253, 195, 69, 0.1),
+    background_color_progress2_bg:
+      linear-gradient(90deg, #fdc345 0%, rgba(253, 195, 69, 0.5) 100%),
+    // 图例
+    background_color_legend: #ebebeb,
+    // 阴影
+    box_dialog_shadow: inset 0px 0px 20px 0px rgba(102, 255, 204, 0.3),
+    box_dialog_shadow_08: inset 0px 0px 20px 0px rgba(102, 255, 204, 0.8),
+    box_hint_shadow: inset 0px 0px 20px 0px rgba(35, 196, 253, 0.5),
+    head_box_shadow: inset 0px 0px 10px 0px rgba(54, 124, 255, 0.8),
+    box_shadow: inset 0px 0px 40px 0px rgba(0, 111, 255, 0.302),
+  ),
+  light: (),
+);
+//切换主题时 获取不同的主题色值
+// themeify方法用于获取HTML的 data-theme值。
+// themed方法用于根据HTML的 data-theme值及调用者传过来的key去 _themes.scss里获取相应的颜色。
+@mixin themeify {
+  @each $theme-name, $theme-map in $themes {
+    //!global 把局部变量强升为全局变量
+    $theme-map: $theme-map !global;
+    //判断html的data-theme的属性值  #{}是sass的插值表达式
+    //& sass嵌套里的父容器标识   @content是混合器插槽，像vue的slot
+    [data-theme="#{$theme-name}"] & {
+      @content;
+    }
+  }
+}
+
+//从主题色map中取出对应颜色
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+//获取背景颜色
+@mixin background_color($color) {
+  @include themeify {
+    background-color: themed($color) !important;
+  }
+}
+//获取背景
+@mixin background($color) {
+  @include themeify {
+    background: themed($color) !important;
+  }
+}
+//获取字体颜色
+@mixin font_color($color, $important: true) {
+  @include themeify {
+    @if $important {
+      color: themed($color) !important;
+    }
+    else {
+      color: themed($color);
+    }
+  }
+}
+//获取边框颜色
+@mixin border_color($color) {
+  @include themeify {
+    border-color: themed($color) !important;
+  }
+}
+//获取box-show
+@mixin box_shadow($color) {
+  @include themeify {
+    box-shadow: themed($color) !important;
+  }
+}
+//获取border_image
+@mixin border_image($color) {
+  @include themeify {
+    border-image: themed($color) !important;
+  }
+}

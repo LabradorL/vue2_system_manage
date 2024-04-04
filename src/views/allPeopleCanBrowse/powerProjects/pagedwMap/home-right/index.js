@@ -12,6 +12,7 @@ export default {
       rightTwoCountObj: {},
       // 线路异常区域分析
       lineAbnormalOptions: [],
+      lineAbnormalList: [],
       lineTotal: 0,
       startTime: '',
       endTime: '',

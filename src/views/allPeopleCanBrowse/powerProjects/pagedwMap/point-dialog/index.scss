@@ -1,0 +1,161 @@
+.dialog-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  overflow: auto;
+  .dialog-left {
+    position: relative;
+    width: 390px;
+    height: 100%;
+    @include background("background_color_title");
+    // background: linear-gradient(270deg, rgba(0,29,54,0.6) 0%, rgba(17,64,107,0.2) 100%);
+    box-shadow: inset 0px 0px 40px 0px rgba(0, 111, 255, 0.2);
+    border-radius: 0px 0px 10px 10px;
+    padding: 20px 0;
+    overflow-y: auto;
+    .dialog-left-head {
+      padding: 0 20px;
+      width: 100%;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 20px;
+      font-family: PangMenZhengDao, PangMenZhengDao;
+      font-weight: 400;
+      margin-bottom: 16px;
+      .dialog-left-head-name {
+        width: calc(100% - 52px);
+        height: 100%;
+        @include font_color("font_color_white");
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        /*! autoprefixer: off */
+        -moz-box-orient: vertical;
+        -webkit-box-orient: vertical;
+      }
+    }
+    .dialog-left-box {
+      padding-left: 20px;
+      padding-right: 10px;
+      width: 100%;
+      height: calc(100% - 79px);
+      overflow-y: auto;
+      .exception-daterange-box {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+        .exception-daterange {
+          width: 100%;
+        }
+      }
+    }
+    .dialog-left-li {
+      width: 100;
+      height: 168px;
+      background: url("../imgs/dialog/datail-li-bg.png") no-repeat;
+      background-size: 100% 100%;
+      border-radius: 0px 0px 0px 0px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .dialog-left-li.active {
+      background: url("../imgs/dialog/datail-li-bg-active.png")
+        no-repeat;
+      background-size: 100% 100%;
+    }
+    .dialog-left-li:last-child {
+      margin-bottom: 0px;
+    }
+    .dialog-left-li-head {
+      display: flex;
+      align-items: center;
+      font-family: Microsoft YaHei, Microsoft YaHei;
+      font-weight: 700;
+      font-size: 14px;
+      @include font_color("font_color_white");
+      img {
+        width: 32px;
+        height: 32px;
+        margin-right: 8px;
+      }
+    }
+    .dialog-left-item {
+      display: flex;
+      line-height: 15px;
+      font-size: 14px;
+      font-family: Microsoft YaHei, Microsoft YaHei;
+      font-weight: 400;
+      .dialog-left-item-name {
+        @include font_color("font_color_blue4");
+      }
+      .dialog-left-item-text {
+        @include font_color("font_color_white");
+        span {
+          font-weight: 700;
+        }
+      }
+      .dialog-left-item-text1 {
+        @include font_color("font_color_blue4");
+        span {
+          font-weight: 700;
+          @include font_color("font_color_white");
+          margin-right: 4px;
+        }
+      }
+    }
+    .detail-pagination-box {
+      width: 100%;
+      position: absolute;
+      bottom: 10px;
+    }
+  }
+  .dialog-right {
+    width: calc(100% - 410px);
+    height: 100%;
+    .dialog-tab {
+      width: 100%;
+      height: 52px;
+      @include background("background_color_pagination_bg");
+      border-radius: 8px 8px 8px 8px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .dialog-tab-li {
+        font-size: 20px;
+        font-family: PangMenZhengDao, PangMenZhengDao;
+        font-weight: 400;
+        @include font_color("font_color_gray");
+        position: relative;
+        cursor: pointer;
+      }
+      .dialog-tab-li.active {
+        @include font_color("font_color_blue");
+      }
+      .dialog-tab-li.active::after {
+        position: absolute;
+        bottom: -15px;
+        left: -20px;
+        width: calc(100% + 40px);
+        content: "";
+        height: 30px;
+        background: url("../imgs/dialog/title-active-bg.png");
+        background-size: 100% 100%;
+      }
+    }
+    .dialog-tab-body {
+      width: 100%;
+      // height: calc(100% - 72px);
+      // margin-top: 20px;
+      height: 100%;
+    }
+  }
+}

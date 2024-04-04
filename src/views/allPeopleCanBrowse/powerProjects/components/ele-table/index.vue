@@ -193,7 +193,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "@/assets/styles/themes.scss";
+@import "@/assets/styles/mixin.scss";
 .el-table {
   background-color: inherit !important;
 }
