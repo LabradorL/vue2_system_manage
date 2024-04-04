@@ -1,8 +1,8 @@
 <!--
  * @Author: lixiaofeng
  * @Date: 2022-09-25 15:57:32
- * @LastEditors: lixiaofeng
- * @LastEditTime: 2022-10-14 17:26:25
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-04-03 18:06:09
  * @Description: 页面入口
 -->
 <template>
@@ -24,3 +24,6 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+@import "@/assets/styles/mixin.scss";
+</style>

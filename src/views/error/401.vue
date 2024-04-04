@@ -1,8 +1,8 @@
 <!--
  * @Author: lixiaofeng
  * @Date: 2022-10-14 14:22:02
- * @LastEditors: lixiaofeng
- * @LastEditTime: 2022-10-14 17:26:11
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-04-04 10:05:23
  * @Description: 无访问权限页面
 -->
 <template>
@@ -43,6 +43,9 @@ export default {
       errGif: errGif + '?' + Number(new Date())
     }
   },
+  mounted() {
+    window.document.documentElement.setAttribute('data-theme', 'dark') // 给根节点设置data-theme属性，切换主题色就是修改data-theme的值
+  },
   methods: {
     back() {
       if (this.$route.query.noGoBack) {
@@ -55,44 +58,10 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped src='./index.scss'></style>
 <style lang="scss" scoped>
-.errPage-container {
-  width: 800px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 100px 0;
-  .pan-back-btn {
-    background: #008489;
-    color: #fff;
-    border: none !important;
-  }
-  .pan-gif {
-    margin: 0 auto;
-    display: block;
-  }
-  .pan-img {
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-  }
-  .text-jumbo {
-    font-size: 60px;
-    font-weight: 700;
-    color: #484848;
-  }
-  .list-unstyled {
-    list-style: none;
-    font-size: 14px;
-    li {
-      padding-bottom: 5px;
-    }
-    a {
-      color: #008489;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-}
+
+
+
+
 </style>
