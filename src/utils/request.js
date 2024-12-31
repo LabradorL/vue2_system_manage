@@ -1,8 +1,8 @@
 /*
  * @Author: lixiaofeng
  * @Date: 2022-09-30 10:13:55
- * @LastEditors: lixiaofeng 1091616642@qq.com
- * @LastEditTime: 2023-09-04 10:27:46
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-08-15 10:29:21
  * @Description: 网络请求响应设置
  */
 import axios from 'axios'
@@ -111,23 +111,23 @@ service.interceptors.response.use(res => {
   }
   return res.data
 },
-  error => {
-    console.log('err' + error)
-    let { message } = error
-    if (message == 'Network Error') {
-      message = '后端接口连接异常'
-    } else if (message.includes('timeout')) {
-      message = '系统接口请求超时'
-    } else if (message.includes('Request failed with status code')) {
-      message = '系统接口' + message.substr(message.length - 3) + '异常'
-    }
-    Message({
-      message: message,
-      type: 'error',
-      duration: 5 * 1000
-    })
-    return Promise.reject(error)
+error => {
+  console.log('err' + error)
+  let { message } = error
+  if (message == 'Network Error') {
+    message = '后端接口连接异常'
+  } else if (message.includes('timeout')) {
+    message = '系统接口请求超时'
+  } else if (message.includes('Request failed with status code')) {
+    message = '系统接口' + message.substr(message.length - 3) + '异常'
   }
+  Message({
+    message: message,
+    type: 'error',
+    duration: 5 * 1000
+  })
+  return Promise.reject(error)
+}
 )
 
 // 通用下载方法

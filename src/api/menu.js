@@ -2,7 +2,7 @@
  * @Author: lixiaofeng
  * @Date: 2022-09-25 16:51:23
  * @LastEditors: 李晓风 1091616642@qq.com
- * @LastEditTime: 2024-02-04 14:17:43
+ * @LastEditTime: 2024-12-31 16:43:13
  * @Description: 获取路由api
  */
 // import request from '@/utils/request'
@@ -128,6 +128,7 @@ export const getRouters = () => {
             path: 'threeDimensional',
             hidden: false,
             component: '3DCharts/pie.vue',
+            // component: '3DCharts/bar.vue',
             meta: { title: '3D图表集合', icon: '1', noCache: false }
           },
           {

@@ -1,8 +1,8 @@
 <!--
  * @Author: lixiaofeng
  * @Date: 2022-11-15 17:25:07
- * @LastEditors: lixf@863jp.com.cn
- * @LastEditTime: 2023-06-19 10:26:34
+ * @LastEditors: 李晓风 1091616642@qq.com
+ * @LastEditTime: 2024-12-31 16:37:39
  * @Description: 只有一列的表单数据 添加的数据量较少
 -->
 <template>
@@ -179,10 +179,32 @@ export default {
         ],
         timeArr: [{ required: true, message: '请选择时间', trigger: 'change' }]
       },
+      choiceDate: '', // 点击选择的日期
       // 设置可选的时间
       expireTimeOption: {
-        disabledDate(date) {
-          return date.getTime() < Date.now() - 24 * 60 * 60 * 1000
+        onPick: ({ maxDate, minDate }) => {
+          // 把选择的第一个日期赋值给一个变量。
+          this.choiceDate = minDate.getTime()
+          // 如何你选择了两个日期了，就把那个变量置空
+          if (maxDate) {
+            this.choiceDate = ''
+          }
+        },
+        disabledDate: (time) => {
+          const today = new Date(new Date().setHours(0, 0, 0, 0))
+          // 7天的时间戳
+          const oneDay = 1 * 24 * 3600 * 1000
+          const sixDay = 6 * 24 * 3600 * 1000
+          if (this.choiceDate) {
+            // 可选择点击日期 前后七天的日期
+            // 当前日期 - one = 7天之前
+            const minTime = this.choiceDate - sixDay
+            // 当前日期 + one = 7天之后
+            const maxTime = this.choiceDate + sixDay
+            return time.getTime() < minTime || time.getTime() > maxTime || time.getTime() > today.getTime()
+          }
+          // 只能选择今天之前的日期
+          return time.getTime() > today.getTime() - oneDay
         }
       },
       // 性别字典

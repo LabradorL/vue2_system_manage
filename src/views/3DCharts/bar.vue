@@ -1,101 +1,131 @@
 <!--
  * @Author: lixiaofeng
- * @Date: 2023-05-31 09:40:02
- * @LastEditTime: 2024-06-20 22:08:08
+ * @Date: 2023-04-28 10:49:00
+ * @LastEditTime: 2024-06-20 21:53:59
  * @LastEditors: 李晓风 1091616642@qq.com
- * @Description: 柱状图
+ * @Description: 3D饼图
 -->
 <template>
-  <div class="chart-container" style="width: 100%; height: 100%">
-    <div
-      v-for="item in barChartNum"
-      :key="item"
-      :ref="'twoDBarChartRef'"
-      class="chart-container-item"
-    />
+  <div class="app-container">
+    <div ref="threeDimensionalLineRef" class="two-dimensional-pie-box" />
   </div>
 </template>
 <script>
 import * as echarts from 'echarts'
-import { getBarChartData, barOptions, getMoreBarChartData, barSeriesOptions } from '@/const/chartsData/bar'
-import { sameKeyDataAdd, sameKeyDataPush, deepClone } from '@/utils/common'
+import 'echarts-gl' // 3d图表库
+import { getPieChartData } from '@/const/chartsData/pie'
+import { getPie3D } from './utils/pieCharts.js'
+const color = [
+  '#01CBD8',
+  '#2451FF',
+  '#5AADD4',
+  '#B35AFF',
+  '#EDCC31',
+  '#4B8EB1'
+]
 export default {
   // 组件名称
-  name: 'TwoDimensionalBarChart',
+  name: 'ThreeDimensionalPieChart',
   // 局部注册的组件
   components: {},
   // 组件参数 接收来自父组件的数据
   props: {},
+  // 组件状态值
   data() {
     return {
-      //  柱形图的数数量
-      barChartNum: ['基础柱形图', '多系列柱形图', '类3D柱状图'],
-      // 图表DOM列表
-      barCharDomArr: [],
       // 图表DOM
-      twoDBarChartDom: null,
+      threeDPieChartDom: null,
       // 图表配置
       chartOptions: {},
       // 图表数据
       chartData: [],
-      // 柱形图颜色
-      barColor: ['#006EE9FF', '#00CCFFFF', '#F5A43AFF']
+      optionsData: []
     }
   },
-  created() {
-    this.chartOptions = barOptions
-  },
+  // 计算属性
+  computed: {},
+
+  created() { },
   mounted() {
-    this.init()
+    this.getChartData()
   },
+  beforeDestroy() {
+  },
+  destroyed() {
+  },
+
+  // 组件方法
   methods: {
-    init() {
-      this.getChartData()
+    // 初始化图表配置
+    initChartOptions() {
+      this.chartData.forEach((item, index) => {
+        item.itemStyle = {
+          color: color[index]
+        }
+        item.label = {
+          normal: {
+            show: true, // 是否显示引导线和数据
+            color: color[index],
+
+            // formatter: [
+            //   '{b|{b}}',
+            //   '{c|{c}}{b|起}',
+            //   '{d|{d}%}'
+            // ].join('\n'), // 用\n来换行
+            // formatter: ["{c|{c}}{b|起}"].join("\n"), // 用\n来换行
+            formatter: ['{d|{d}%}'].join('\n'), // 用\n来换行
+            rich: {
+              b: {
+                color: '#fff',
+                lineHeight: 25,
+                align: 'left'
+              },
+              c: {
+                fontSize: 12,
+                color: '#fff',
+                textShadowColor: '#1c90a6',
+                textShadowOffsetX: 0,
+                textShadowOffsetY: 2,
+                textShadowBlur: 5
+              },
+              d: {
+                color: color[index],
+                align: 'left'
+              }
+            }
+          }
+        }
+        item.labelLine = { // 引导线设置
+          normal: {
+            show: true, // 引导线显示
+            lineStyle: {
+              width: 1,
+              color: 'rgba(255,255,255,0.7)'
+            },
+            // 视觉引导线第一段的长度
+            length: 30,
+            // 视觉引导项第二段的长度
+            length2: 50
+          }
+        }
+      })
     },
+    // 获取图表数据
     getChartData() {
-      getBarChartData().then((res) => {
+      getPieChartData().then(res => {
         res = res.data
-        this.chartData = sameKeyDataAdd(res, 'name', 'value', 'dataCount')
-        const seriesList = []
-        seriesList.push({
-          ...barSeriesOptions,
-          name: '总案件数',
-          data: this.chartData.map(item => item.value)
+        this.chartData = this.dataHandle(res)
+        this.initChartOptions()
+        this.$nextTick(() => {
+          this.initChart()
         })
-        seriesList.push({
-          ...barSeriesOptions,
-          name: '折线',
-          type: 'line',
-          label: { show: false },
-          data: this.chartData.map(item => item.value).reverse()
-        })
-        this.chartOptions.series = seriesList
-        this.chartOptions.xAxis.data = this.chartData.map(item => item.name)
-        this.initChart('twoDBarChartRef', this.chartOptions, 0)
       })
-      getMoreBarChartData().then((res) => {
-        res = res.data
-        const tempSeriesList = sameKeyDataPush(res, 'name', 'value', 'dataCount', true, 'list')
-        const xData = res.map(item => item.year)
-        const options = deepClone(barOptions)
-        const seriesList = []
-        tempSeriesList.forEach((item, idx) => {
-          seriesList.push({
-            ...barSeriesOptions,
-            name: item.name,
-            data: item.value,
-            colorBy: 'series'
-          })
-        })
-        options.xAxis.data = xData
-        options.legend.show = true
-        options.legend.data = tempSeriesList.map(item => item.name)
-        options.series = seriesList
-        this.initChart('twoDBarChartRef', options, 1)
-      })
+    },
+    // 初始化图表（注册）
+    initChart() {
+      // 基于准备好的dom，初始化echarts实例
+      this.threeDPieChartDom = echarts.init(this.$refs.threeDimensionalLineRef)
       const options = {
-        backgroundColor: 'rgb(22, 84, 171,0.6)',
-        backgroundColor: '#10356A',
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -199,12 +229,9 @@ export default {
             symbol: 'diamond',
             symbolSize: [15, 5],
             symbolOffset: ['-180%', -3],
-            z: 3,
+            z: 2,
             symbolPosition: 'end',
-            data: [100, 110, 120, 130, 140],
-            tooltip: {
-              show: false
-            }
+            data: [100, 110, 120, 130, 140]
           },
           // 数据2的柱状图2
           {
@@ -245,10 +272,7 @@ export default {
             symbolOffset: ['-60%', -3],
             z: 12,
             symbolPosition: 'end',
-            data: [90, 100, 105, 110, 120],
-            tooltip: {
-              show: false
-            }
+            data: [90, 100, 105, 110, 120]
           },
           // 数据3的柱状图1
           {
@@ -286,12 +310,9 @@ export default {
             symbol: 'diamond',
             symbolSize: [15, 5],
             symbolOffset: ['60%', -3],
-            z: 4,
+            z: 2,
             symbolPosition: 'end',
-            data: [100, 110, 120, 130, 140],
-            tooltip: {
-              show: false
-            }
+            data: [100, 110, 120, 130, 140]
           },
           // 数据4的柱状图1
           {
@@ -329,51 +350,45 @@ export default {
             symbol: 'diamond',
             symbolSize: [15, 5],
             symbolOffset: ['180%', -3],
-            z: 4,
+            z: 2,
             symbolPosition: 'end',
-            data: [90, 100, 105, 110, 120],
-            tooltip: {
-              show: false
-            }
+            data: [90, 100, 105, 110, 120]
           }
         ]
       }
-      this.initChart('twoDBarChartRef', options, 2)
+      this.chartOptions = options
+      this.threeDPieChartDom.setOption(this.chartOptions)
     },
-    resizeChange() {
-      this.barCharDomArr.forEach(item => {
-        item.resize()
-      })
-    },
-    initChart(chartDom, chartData, idx) {
-      // chartDom chartDom 的Ref值
-      // chartData 图表的数据
-      // idx 第几个图表
-      this.$nextTick(() => {
-        const chartRenderDom = echarts.init(this.$refs[chartDom][idx])
-        // 判断是否已存在，存在则不push
-        if (!this.barCharDomArr[idx]) {
-          this.barCharDomArr.push(chartRenderDom)
+    // 数据处理, 处理成符合echars的数据 {name: 'XXX', value: XX}
+    dataHandle(res) {
+      // 最终结果的map对象,可以针对展示的内容根据后端返回的数据进行展示，不确定性大
+      const resultDataMap = new Map()
+      res.forEach(item => {
+        let num = 0
+        // 是否存在某一项数据, 存在取出对应的值
+        if (resultDataMap.has(item.name)) {
+          num = resultDataMap.get(item.name)
         }
-        chartRenderDom.setOption(chartData)
+        resultDataMap.set(item.name, num + item.dataCount)
       })
+      const resultData = [...resultDataMap].map(([key, value]) => {
+        return {
+          name: key,
+          value: value
+        }
+      })
+      return resultData
     }
   }
 }
 </script>
+
 <style lang="scss" scoped>
-.chart-container {
-  display: flex;
-  overflow-x: auto;
-  flex-wrap: wrap;
-  color: #fff;
-  .chart-container-item {
-    width: 615px;
-    // height: 100%;
-    height: 200px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 50%;
-  }
+.two-dimensional-pie-box {
+  padding: 10px 30px;
+  width: 472px;
+  height: 275px;
+  background: #01cbd8;
 }
 </style>
+

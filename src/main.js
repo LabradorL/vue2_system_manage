@@ -2,7 +2,7 @@
  * @Author: lixiaofeng
  * @Date: 2022-09-25 15:57:32
  * @LastEditors: 李晓风 1091616642@qq.com
- * @LastEditTime: 2024-02-07 16:24:12
+ * @LastEditTime: 2024-08-26 19:36:49
  * @Description:页面程序入口
  */
 import Vue from 'vue'
@@ -69,7 +69,7 @@ Vue.use(plugins)
 Vue.use(scroll)
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false // 阻止 vue 在启动时生成生产提示
 
 new Vue({
   router,

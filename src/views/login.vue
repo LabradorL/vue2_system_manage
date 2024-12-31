@@ -2,7 +2,7 @@
  * @Author: lixiaofeng
  * @Date: 2022-09-25 17:27:29
  * @LastEditors: 李晓风 1091616642@qq.com
- * @LastEditTime: 2024-02-04 14:23:12
+ * @LastEditTime: 2024-06-07 11:11:57
  * @Description: 登录页面
 -->
 <template>
@@ -146,6 +146,10 @@ export default {
       //     this.codeUrl = 'data:image/gif;base64,' + res.img
       //     this.loginForm.uuid = res.uuid
       //   }
+      // }).catch(() => {
+      //   console.log('发生异常执行的函数')
+      // }).finally(() => {
+      //   console.log('成功失败都会执行的函数')
       // })
       this.identifyCode = ''
       this.makeCode(this.identifyCodes, 4)

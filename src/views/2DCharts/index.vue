@@ -1,12 +1,12 @@
 <!--
  * @Author: lixiaofeng
  * @Date: 2023-05-31 11:06:32
- * @LastEditTime: 2023-10-06 15:40:20
- * @LastEditors: lixiaofeng 1091616642@qq.com
+ * @LastEditTime: 2024-06-20 21:53:03
+ * @LastEditors: 李晓风 1091616642@qq.com
  * @Description:
 -->
 <template>
-  <div class="app-container ">
+  <div class="app-container">
     <div class="item-echars-box flex50">
       <bar ref="barEcharRef" />
     </div>
@@ -22,7 +22,6 @@
       <map-echar class="mapEcharRef" />
     </div>
   </div>
-
 </template>
 
 <script>
@@ -50,9 +49,9 @@ export default {
   mounted() {
   },
   // 被 keep-alive 缓存的组件激活（显示）时调用。
-  activated() {},
+  activated() { },
   // 被 keep-alive 缓存的组件失活（隐藏）时调用。
-  deactivated() {},
+  deactivated() { },
   beforeDestroy() {
   },
   destroyed() {
@@ -68,14 +67,14 @@ export default {
 }
 .item-echars-box {
   flex: 30%;
-  margin-right: 1%;;
-  height: 200px;
+  margin-right: 1%;
+  height: 400px;
 }
 .flex50 {
   flex: 50%;
 }
 .bg-color {
-  background: #01CBD8;
+  background: #01cbd8;
 }
 .height500 {
   height: 500px;

@@ -172,22 +172,16 @@
                 <p class="right-top-item-right-li-text">
                   线路数/条 <span>2059</span>
                 </p>
-                <div class="right-top-item-right-li-progressBox">
-                  <p
-                    class="right-top-item-right-li-progress"
-                    style="width: 93.78%"
-                  />
+                <div class="progress-out-box">
+                  <p class="progress-inner-box" style="width: 93.78%" />
                 </div>
               </div>
               <div class="right-top-item-right-li">
                 <p class="right-top-item-right-li-text">
                   自动化线路数/条 <span>1931</span>
                 </p>
-                <div class="right-top-item-right-li-progressBox">
-                  <p
-                    class="right-top-item-right-li-progress"
-                    style="width: 6.28%"
-                  />
+                <div class="progress-out-box">
+                  <p class="progress-inner-box" style="width: 6.28%" />
                 </div>
               </div>
             </div>
@@ -203,22 +197,16 @@
                 <p class="right-top-item-right-li-text">
                   开关数/台 <span>45220</span>
                 </p>
-                <div class="right-top-item-right-li-progressBox">
-                  <p
-                    class="right-top-item-right-li-progress"
-                    style="width: 88.06%"
-                  />
+                <div class="progress-out-box">
+                  <p class="progress-inner-box" style="width: 88.06%" />
                 </div>
               </div>
               <div class="right-top-item-right-li">
                 <p class="right-top-item-right-li-text">
                   自动化开关数/台 <span>39820</span>
                 </p>
-                <div class="right-top-item-right-li-progressBox">
-                  <p
-                    class="right-top-item-right-li-progress"
-                    style="width: 11.94%"
-                  />
+                <div class="progress-out-box">
+                  <p class="progress-inner-box" style="width: 11.94%" />
                 </div>
               </div>
             </div>
@@ -234,22 +222,16 @@
                 <p class="right-top-item-right-li-text">
                   配变数/台 <span>172024</span>
                 </p>
-                <div class="right-top-item-right-li-progressBox">
-                  <p
-                    class="right-top-item-right-li-progress"
-                    style="width: 29.95%"
-                  />
+                <div class="progress-out-box">
+                  <p class="progress-inner-box" style="width: 29.95%" />
                 </div>
               </div>
               <div class="right-top-item-right-li">
                 <p class="right-top-item-right-li-text">
                   融合终端数/台 <span>51518</span>
                 </p>
-                <div class="right-top-item-right-li-progressBox">
-                  <p
-                    class="right-top-item-right-li-progress"
-                    style="width: 70.05%"
-                  />
+                <div class="progress-out-box">
+                  <p class="progress-inner-box" style="width: 70.05%" />
                 </div>
               </div>
             </div>
@@ -538,7 +520,7 @@
                 @include font_color("font_color_white");
               }
             }
-            .right-top-item-right-li-progressBox {
+            .progress-out-box{
               width: 100%;
               height: 10px;
               border-radius: 0px 0px 0px 0px;
@@ -547,7 +529,7 @@
               padding: 2px;
               @include background("background_color_progress1");
               @include border_color("border_color");
-              .right-top-item-right-li-progress {
+              .progress-inner-box {
                 height: 4px;
                 @include background("background_color_progress1_bg");
               }

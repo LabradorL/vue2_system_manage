@@ -1,15 +1,14 @@
 <!--
  * @Author: lixiaofeng
  * @Date: 2023-04-28 10:49:00
- * @LastEditTime: 2023-09-07 14:11:07
- * @LastEditors: lixiaofeng 1091616642@qq.com
+ * @LastEditTime: 2024-06-21 15:21:21
+ * @LastEditors: 李晓风 1091616642@qq.com
  * @Description: 3D饼图
 -->
 <template>
   <div class="app-container">
     <div ref="threeDimensionalPieRef" class="two-dimensional-pie-box" />
   </div>
-
 </template>
 <script>
 import * as echarts from 'echarts'
@@ -46,7 +45,7 @@ export default {
   // 计算属性
   computed: {},
 
-  created() {},
+  created() { },
   mounted() {
     this.getChartData()
   },
@@ -58,7 +57,7 @@ export default {
   // 组件方法
   methods: {
     // 初始化图表配置
-    initChartOptions(){
+    initChartOptions() {
       this.chartData.forEach((item, index) => {
         item.itemStyle = {
           color: color[index]
@@ -123,7 +122,7 @@ export default {
       })
     },
     // 初始化图表（注册）
-    initChart(){
+    initChart() {
       // 基于准备好的dom，初始化echarts实例
       this.threeDPieChartDom = echarts.init(this.$refs.threeDimensionalPieRef)
       // 传入数据生成 chartData, 构建3d饼状图, 参数工具文件已经备注的很详细
@@ -145,11 +144,12 @@ export default {
           opacity: 1, // 默认为0
           // color: 'fff', // 文本颜色
           // 标签位置 outside | inside |inner | center
-          position: 'outside'
+          position: 'outside',
+          padding: [0, -90, 20] // 文字在引导线的位置 -90 向右移动90 20 向上移动20
           // 标签文字格式化 string | Function
           // formatter: (params) => {
           //   console.log(params)
-          //   return ''
+          //   return `${data.name} ${data.value} ${data.percent}`;
           // }
         },
         startAngle: -23, // 起始角度，支持范围[0, 360]。
@@ -157,6 +157,7 @@ export default {
         data: this.chartData,
         radius: [0, '40%'],
         center: ['33%', '50%'],
+
         itemStyle: {
           opacity: 0, // 这里必须是0，不然2d的图会覆盖在表面
           fontSize: 10
@@ -175,7 +176,7 @@ export default {
         if (resultDataMap.has(item.name)) {
           num = resultDataMap.get(item.name)
         }
-        resultDataMap.set(item.name, num + item.dataCount )
+        resultDataMap.set(item.name, num + item.dataCount)
       })
       const resultData = [...resultDataMap].map(([key, value]) => {
         return {
@@ -195,8 +196,7 @@ export default {
   width: 472px;
   height: 275px;
   // height: 200px;
-  background: #01CBD8;
+  background: #01cbd8;
 }
-
 </style>
 

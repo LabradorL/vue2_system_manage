@@ -16,6 +16,9 @@
           <div class="box-item box2" />
         </div>
       </div>
+      <div class="font-color-linear-gradient">
+        <span>字体颜色渐变</span>
+      </div>
     </div>
   </div>
 </template>
@@ -35,18 +38,14 @@ export default {
   computed: {},
   // 侦听器
   watch: {},
-  created() {
-  },
-  mounted() {
-  },
+  created() {},
+  mounted() {},
   // 被 keep-alive 缓存的组件激活（显示）时调用。
-  activated() { },
+  activated() {},
   // 被 keep-alive 缓存的组件失活（隐藏）时调用。
-  deactivated() { },
-  beforeDestroy() {
-  },
-  destroyed() {
-  },
+  deactivated() {},
+  beforeDestroy() {},
+  destroyed() {},
   // 方法
   methods: {}
 }
@@ -120,6 +119,21 @@ export default {
   }
 }
 
+.font-color-linear-gradient {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  background: rgba(3, 26, 70, 0.3);
+  padding: 10px 20px;
+  span {
+    background: linear-gradient(180deg, #23c4fd 0%, #ffffff 99%);
+    // background: linear-gradient(0deg, #23c4fd 0%, #ffffff 99%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+}
 .perspective {
   /*视距(透视)perspective：设置人和物体之间的距离，这个值要给物体的父元素*/
   perspective: 1000px;
